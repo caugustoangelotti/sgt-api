@@ -3,7 +3,9 @@
     "outDir": "./dist",
     "module": "commonjs",
     "target": "es2022",
+    "rootDirs": ["src"],
     "esModuleInterop": true,
     "allowJs": true,
+    "strictNullChecks": true
   }
 }
