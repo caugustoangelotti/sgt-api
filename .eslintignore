@@ -4,4 +4,4 @@ coverage
 ./data
 requirements
 .vscode
-tsconfig.json
+jest.config.js
