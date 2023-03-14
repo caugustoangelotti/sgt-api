@@ -3,7 +3,7 @@
     "outDir": "./dist",
     "module": "commonjs",
     "target": "es2022",
-    "rootDirs": ["src"],
+    "rootDirs": ["src", "testes"],
     "esModuleInterop": true,
     "allowJs": true,
     "strictNullChecks": true
