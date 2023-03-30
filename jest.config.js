@@ -31,6 +31,7 @@ module.exports = {
 
   // The directory where Jest should output its coverage files
   coverageDirectory: "coverage",
+  preset: '@shelf/jest-mongodb',
 
   // A map from regular expressions to paths to transformers
   transform: {

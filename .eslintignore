@@ -5,3 +5,5 @@ coverage
 requirements
 .vscode
 jest.config.js
+.eslintrc.js
+jest-mongodb-config.js
