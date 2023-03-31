@@ -1,5 +1,28 @@
+import type { AddProfessor } from '../../domain/usecases/add-professor'
 import { MissingParamError } from '../errors'
 import { AddProfessorController } from './add-professor-controller'
+
+class AddProfessorSpy implements AddProfessor {
+  params: AddProfessor.Params
+
+  async add (params: AddProfessor.Params): Promise<void> {
+    this.params = params
+  }
+}
+
+interface SutTypes {
+  sut: AddProfessorController
+  addProfessorSpy: AddProfessorSpy
+}
+
+const makeSut = (): SutTypes => {
+  const addProfessorSpy = new AddProfessorSpy()
+  const sut = new AddProfessorController(addProfessorSpy)
+  return {
+    sut,
+    addProfessorSpy
+  }
+}
 
 describe('Add Professor Controller', () => {
   test('Should return 400 if no name is provided', async () => {
@@ -9,7 +32,7 @@ describe('Add Professor Controller', () => {
         tempoIc: 12
       }
     }
-    const sut = new AddProfessorController()
+    const { sut } = makeSut()
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body).toEqual(new MissingParamError('name'))
@@ -22,7 +45,7 @@ describe('Add Professor Controller', () => {
         tempoIc: 12
       }
     }
-    const sut = new AddProfessorController()
+    const { sut } = makeSut()
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body).toEqual(new MissingParamError('email'))
@@ -35,7 +58,7 @@ describe('Add Professor Controller', () => {
         email: 'any_email'
       }
     }
-    const sut = new AddProfessorController()
+    const { sut } = makeSut()
     const httpResponse = await sut.handle(httpRequest)
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body).toEqual(new MissingParamError('tempoIc'))

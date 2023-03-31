@@ -7,11 +7,7 @@
     "strictNullChecks": true,
     "sourceMap": true,
     "rootDirs": ["src", "tests"],
-    "baseUrl": "src",
-    "paths": {
-      "@/tests/*": ["../tests/*"],
-      "@/*": ["*"]
-    }
+    "baseUrl": "src"
   },
   "include": ["src", "tests"],
   "exclude": []
