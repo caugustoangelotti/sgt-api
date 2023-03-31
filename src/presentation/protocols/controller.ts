@@ -1,4 +1,4 @@
-import type { HttpResponse } from '@/presentation/protocols/http'
+import type { HttpResponse } from '../protocols/http'
 
 export interface Controller<T = any> {
   handle: (request: T) => Promise<HttpResponse>
