@@ -16,6 +16,13 @@ export class AddProfessorController implements Controller {
         return badRequest(new MissingParamError(field))
       }
     }
+    const professor = {
+      name: httpRequest.body.name,
+      email: httpRequest.body.email,
+      tempoIc: httpRequest.body.tempoIc
+    }
+
+    await this.addProfessor.add(professor)
     return ok(httpRequest.body)
   }
 }
