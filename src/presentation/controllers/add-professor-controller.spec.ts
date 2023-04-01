@@ -63,4 +63,22 @@ describe('Add Professor Controller', () => {
     expect(httpResponse.statusCode).toBe(400)
     expect(httpResponse.body).toEqual(new MissingParamError('tempoIc'))
   })
+
+  test('Should call AddProfessor with correct values', async () => {
+    const { sut, addProfessorSpy } = makeSut()
+    const request = {
+      body: {
+        name: 'any_name',
+        email: 'any_email',
+        tempoIc: 12
+      }
+    }
+    const professor = {
+      name: request.body.name,
+      email: request.body.email,
+      tempoIc: request.body.tempoIc
+    }
+    await sut.handle(request)
+    expect(addProfessorSpy.params).toEqual(professor)
+  })
 })
