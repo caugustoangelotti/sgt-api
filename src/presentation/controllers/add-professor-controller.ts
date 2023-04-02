@@ -24,7 +24,14 @@ export class AddProfessorController implements Controller {
       }
 
       await this.addProfessor.add(professor)
-      return ok(httpRequest.body)
+      const response = {
+        body: {
+          ...professor
+        },
+        statusCode: 200
+
+      }
+      return ok(response)
     } catch (error) {
       return serverError(error)
     }
