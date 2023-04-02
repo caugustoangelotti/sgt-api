@@ -1,4 +1,4 @@
-import { serverError } from '../helpers/http-helper'
+import { serverError, ok } from '../helpers/http-helper'
 import type { AddProfessor } from '../../domain/usecases/add-professor'
 import { MissingParamError } from '../errors'
 import { AddProfessorController } from './add-professor-controller'
@@ -97,5 +97,22 @@ describe('Add Professor Controller', () => {
     })
     const httpResponse = await sut.handle(request)
     expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
+  test('Should return 204 on success', async () => {
+    const { sut } = makeSut()
+    const request = {
+      body: {
+        name: 'any_name',
+        email: 'any_email',
+        tempoIc: 12
+      }
+    }
+    const response = {
+      ...request,
+      statusCode: 200
+    }
+    const httpResponse = await sut.handle(request)
+    expect(httpResponse).toEqual(ok(response))
   })
 })
