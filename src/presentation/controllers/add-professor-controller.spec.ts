@@ -1,3 +1,4 @@
+import { serverError } from '../helpers/http-helper'
 import type { AddProfessor } from '../../domain/usecases/add-professor'
 import { MissingParamError } from '../errors'
 import { AddProfessorController } from './add-professor-controller'
@@ -80,5 +81,21 @@ describe('Add Professor Controller', () => {
     }
     await sut.handle(request)
     expect(addProfessorSpy.params).toEqual(professor)
+  })
+
+  test('Should return 500 if AddProfessor throws', async () => {
+    const { sut, addProfessorSpy } = makeSut()
+    const request = {
+      body: {
+        name: 'any_name',
+        email: 'any_email',
+        tempoIc: 12
+      }
+    }
+    jest.spyOn(addProfessorSpy, 'add').mockImplementationOnce(() => {
+      throw new Error()
+    })
+    const httpResponse = await sut.handle(request)
+    expect(httpResponse).toEqual(serverError(new Error()))
   })
 })
