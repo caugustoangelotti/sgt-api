@@ -1,4 +1,4 @@
-import type { AddProfessor } from 'domain/usecases/add-professor'
+import type { AddProfessor } from '../../domain/usecases/add-professor'
 import { MissingParamError } from '../errors'
 import { ok, badRequest, serverError } from '../helpers/http-helper'
 import type { Controller } from '../protocols/controller'

@@ -1,4 +1,4 @@
-import type { ProfessorModel } from 'domain/models/professor'
+import type { ProfessorModel } from '../../domain/models/professor'
 
 export interface AddProfessor {
   add: (professor: AddProfessor.Params) => Promise<void>
