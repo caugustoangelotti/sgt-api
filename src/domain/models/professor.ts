@@ -3,4 +3,5 @@ export interface ProfessorModel {
   name: string
   email: string
   tempoIc: number
+  data_cadastro: Date
 }

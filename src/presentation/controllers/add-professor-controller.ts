@@ -1,39 +1,41 @@
 import type { AddProfessor } from '../../domain/usecases/add-professor'
-import { MissingParamError } from '../errors'
 import { ok, badRequest, serverError } from '../helpers/http-helper'
-import type { Controller } from '../protocols/controller'
-import type { HttpRequest, HttpResponse } from '../protocols/http'
+import type { Controller, Validation, HttpResponse } from '../protocols'
 
 export class AddProfessorController implements Controller {
   constructor (
+    private readonly validation: Validation,
     private readonly addProfessor: AddProfessor
   ) {}
 
-  async handle (httpRequest: HttpRequest): Promise<HttpResponse> {
+  async handle (request: AddProfessorController.Request): Promise<HttpResponse> {
     try {
-      const requiredFields = ['name', 'email', 'tempoIc']
-      for (const field of requiredFields) {
-        if (!httpRequest.body[field]) {
-          return badRequest(new MissingParamError(field))
-        }
+      const error = this.validation.validate(request)
+      if (error) {
+        return badRequest(error)
       }
       const professor = {
-        name: httpRequest.body.name,
-        email: httpRequest.body.email,
-        tempoIc: httpRequest.body.tempoIc
+        name: request.name,
+        email: request.email,
+        tempoIc: request.tempoIc,
+        data_cadastro: new Date()
       }
 
       await this.addProfessor.add(professor)
       const response = {
-        body: {
-          ...professor
-        },
+        ...professor,
         statusCode: 200
-
       }
       return ok(response)
     } catch (error) {
       return serverError(error)
     }
+  }
+}
+export namespace AddProfessorController {
+  export interface Request {
+    name: string
+    email: string
+    tempoIc: number
   }
 }
