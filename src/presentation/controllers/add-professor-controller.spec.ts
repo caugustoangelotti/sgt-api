@@ -1,97 +1,62 @@
 import { serverError, ok } from '../helpers/http-helper'
-import type { AddProfessor } from '../../domain/usecases/add-professor'
-import { MissingParamError } from '../errors'
 import { AddProfessorController } from './add-professor-controller'
+import { ValidationSpy, AddProfessorSpy } from '../mocks'
 
-class AddProfessorSpy implements AddProfessor {
-  params: AddProfessor.Params
-
-  async add (params: AddProfessor.Params): Promise<void> {
-    this.params = params
-  }
-}
+import MockDate from 'mockdate'
 
 interface SutTypes {
   sut: AddProfessorController
   addProfessorSpy: AddProfessorSpy
+  validationSpy: ValidationSpy
 }
 
 const makeSut = (): SutTypes => {
   const addProfessorSpy = new AddProfessorSpy()
-  const sut = new AddProfessorController(addProfessorSpy)
+  const validationSpy = new ValidationSpy()
+  const sut = new AddProfessorController(validationSpy, addProfessorSpy)
   return {
     sut,
-    addProfessorSpy
+    addProfessorSpy,
+    validationSpy
   }
 }
 
+const mockRequest = (): AddProfessorController.Request => ({
+  name: 'any_name',
+  email: 'any_email',
+  tempoIc: 12
+})
+
 describe('Add Professor Controller', () => {
-  test('Should return 400 if no name is provided', async () => {
-    const httpRequest = {
-      body: {
-        email: 'any_email',
-        tempoIc: 12
-      }
-    }
-    const { sut } = makeSut()
-    const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse.statusCode).toBe(400)
-    expect(httpResponse.body).toEqual(new MissingParamError('name'))
+  beforeAll(() => {
+    MockDate.set(new Date())
   })
 
-  test('Should return 400 if no email is provided', async () => {
-    const httpRequest = {
-      body: {
-        name: 'any_name',
-        tempoIc: 12
-      }
-    }
-    const { sut } = makeSut()
-    const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse.statusCode).toBe(400)
-    expect(httpResponse.body).toEqual(new MissingParamError('email'))
+  afterAll(() => {
+    MockDate.reset()
   })
 
-  test('Should return 400 if no tempoIc is provided', async () => {
-    const httpRequest = {
-      body: {
-        name: 'any_name',
-        email: 'any_email'
-      }
-    }
-    const { sut } = makeSut()
-    const httpResponse = await sut.handle(httpRequest)
-    expect(httpResponse.statusCode).toBe(400)
-    expect(httpResponse.body).toEqual(new MissingParamError('tempoIc'))
+  test('Should call Validation with correct values', async () => {
+    const { sut, validationSpy } = makeSut()
+    const request = mockRequest()
+    await sut.handle(request)
+    expect(validationSpy.input).toEqual(request)
   })
 
   test('Should call AddProfessor with correct values', async () => {
     const { sut, addProfessorSpy } = makeSut()
-    const request = {
-      body: {
-        name: 'any_name',
-        email: 'any_email',
-        tempoIc: 12
-      }
-    }
-    const professor = {
-      name: request.body.name,
-      email: request.body.email,
-      tempoIc: request.body.tempoIc
-    }
+    const request = mockRequest()
     await sut.handle(request)
-    expect(addProfessorSpy.params).toEqual(professor)
+    const response = {
+      ...request,
+      data_cadastro: new Date()
+    }
+    expect(addProfessorSpy.params).toEqual(response)
   })
 
   test('Should return 500 if AddProfessor throws', async () => {
     const { sut, addProfessorSpy } = makeSut()
-    const request = {
-      body: {
-        name: 'any_name',
-        email: 'any_email',
-        tempoIc: 12
-      }
-    }
+    const request = mockRequest()
     jest.spyOn(addProfessorSpy, 'add').mockImplementationOnce(() => {
       throw new Error()
     })
@@ -101,16 +66,11 @@ describe('Add Professor Controller', () => {
 
   test('Should return 204 on success', async () => {
     const { sut } = makeSut()
-    const request = {
-      body: {
-        name: 'any_name',
-        email: 'any_email',
-        tempoIc: 12
-      }
-    }
+    const request = mockRequest()
     const response = {
       ...request,
-      statusCode: 200
+      statusCode: 200,
+      data_cadastro: new Date()
     }
     const httpResponse = await sut.handle(request)
     expect(httpResponse).toEqual(ok(response))
