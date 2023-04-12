@@ -3,6 +3,7 @@ import { AddProfessorController } from './add-professor-controller'
 import { ValidationSpy, AddProfessorSpy } from '../mocks'
 
 import MockDate from 'mockdate'
+import { randEmail, randFullName, randNumber } from '@ngneat/falso'
 
 interface SutTypes {
   sut: AddProfessorController
@@ -22,9 +23,9 @@ const makeSut = (): SutTypes => {
 }
 
 const mockRequest = (): AddProfessorController.Request => ({
-  name: 'any_name',
-  email: 'any_email',
-  tempoIc: 12
+  name: randFullName(),
+  email: randEmail(),
+  tempoIc: randNumber({ min: 1, max: 999 })
 })
 
 describe('Add Professor Controller', () => {
@@ -64,7 +65,7 @@ describe('Add Professor Controller', () => {
     expect(httpResponse).toEqual(serverError(new Error()))
   })
 
-  test('Should return 204 on success', async () => {
+  test('Should return 200 on success', async () => {
     const { sut } = makeSut()
     const request = mockRequest()
     const response = {
