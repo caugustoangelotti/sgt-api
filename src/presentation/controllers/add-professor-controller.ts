@@ -15,18 +15,12 @@ export class AddProfessorController implements Controller {
         return badRequest(error)
       }
       const professor = {
-        name: request.name,
-        email: request.email,
-        tempoIc: request.tempoIc,
+        ...request,
         data_cadastro: new Date()
       }
 
       await this.addProfessor.add(professor)
-      const response = {
-        ...professor,
-        statusCode: 200
-      }
-      return ok(response)
+      return ok(professor)
     } catch (error) {
       return serverError(error)
     }

@@ -19,7 +19,8 @@ export class AddDisciplinaController implements Controller {
         data_cadastro: new Date()
       }
       await this.addDisciplina.add(disciplina)
-      return ok({ statusCode: 200 })
+
+      return ok(disciplina)
     } catch (error) {
       return serverError(error)
     }
