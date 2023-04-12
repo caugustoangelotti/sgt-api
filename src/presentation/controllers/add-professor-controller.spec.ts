@@ -68,9 +68,9 @@ describe('Add Professor Controller', () => {
   test('Should return 200 and professor data on success', async () => {
     const { sut } = makeSut()
     const request = mockRequest()
+
     const response = {
       ...request,
-      statusCode: 200,
       data_cadastro: new Date()
     }
     const httpResponse = await sut.handle(request)

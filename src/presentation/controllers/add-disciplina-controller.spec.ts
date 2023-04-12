@@ -1,4 +1,4 @@
-import { serverError } from '../helpers'
+import { ok, serverError } from '../helpers'
 import { ValidationSpy } from '../mocks'
 import { AddDisciplinaSpy } from '../mocks/mock-disciplina'
 import { AddDisciplinaController } from './add-disciplina-controller'
@@ -64,5 +64,16 @@ describe('Add Disciplina Controller', () => {
     })
     const httpResponse = await sut.handle(request)
     expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
+  test('Should return 200 and disciplina data on success', async () => {
+    const { sut } = makeSut()
+    const request = mockRequest()
+    const response = {
+      ...request,
+      data_cadastro: new Date()
+    }
+    const httpResponse = await sut.handle(request)
+    expect(httpResponse).toEqual(ok(response))
   })
 })
