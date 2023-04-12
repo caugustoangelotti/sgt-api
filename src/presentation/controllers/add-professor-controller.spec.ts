@@ -65,7 +65,7 @@ describe('Add Professor Controller', () => {
     expect(httpResponse).toEqual(serverError(new Error()))
   })
 
-  test('Should return 200 on success', async () => {
+  test('Should return 200 and professor data on success', async () => {
     const { sut } = makeSut()
     const request = mockRequest()
     const response = {
