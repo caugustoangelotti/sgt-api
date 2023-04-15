@@ -14,8 +14,10 @@ export class AddProfessorController implements Controller {
       if (error) {
         return badRequest(error)
       }
-      const professor = {
-        ...request,
+      const professor: AddProfessor.Params = {
+        name: request.name,
+        email: request.email,
+        tempoIc: request.tempoIc,
         data_cadastro: new Date()
       }
 

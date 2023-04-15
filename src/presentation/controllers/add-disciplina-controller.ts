@@ -14,12 +14,13 @@ export class AddDisciplinaController implements Controller {
       if (error) {
         return badRequest(error)
       }
-      const disciplina = {
-        ...request,
+      const disciplina: AddDisciplina.Params = {
+        name: request.name,
+        semestre: request.semestre,
+        codigo: request.codigo,
         data_cadastro: new Date()
       }
       await this.addDisciplina.add(disciplina)
-
       return ok(disciplina)
     } catch (error) {
       return serverError(error)
