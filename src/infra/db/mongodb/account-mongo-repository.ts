@@ -1,5 +1,6 @@
-import { MongoHelper } from '../../../infra/db'
+import { MongoHelper } from '../mongodb'
 import { ObjectId } from 'mongodb'
+
 import type { AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository, LoadAccountByTokenRepository, CheckAccountByEmailRepository } from '../../../data/protocols/db'
 
 export class AccountMongoRepository implements AddAccountRepository, LoadAccountByEmailRepository, UpdateAccessTokenRepository, LoadAccountByTokenRepository, CheckAccountByEmailRepository {
