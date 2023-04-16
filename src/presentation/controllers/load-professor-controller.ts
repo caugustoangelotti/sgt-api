@@ -1,5 +1,5 @@
 import type { LoadProfessor } from '../../domain/usecases'
-import { ok } from '../helpers/http-helper'
+import { ok, serverError } from '../helpers'
 import type { Controller, HttpResponse } from '../protocols'
 
 export class LoadProfessorController implements Controller {
@@ -8,7 +8,11 @@ export class LoadProfessorController implements Controller {
   ) {}
 
   async handle (): Promise<HttpResponse> {
-    const professores = await this.loadProfessor.load()
-    return ok(professores)
+    try {
+      const professores = await this.loadProfessor.load()
+      return ok(professores)
+    } catch (error) {
+      return serverError(error)
+    }
   }
 }
