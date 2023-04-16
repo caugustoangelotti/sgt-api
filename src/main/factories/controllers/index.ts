@@ -1,4 +1,5 @@
 export * from './add-professor-controller-factory'
+export * from './load-professor-controller-factory'
 export * from './add-professor-validation-factory'
 export * from './login-controller-factory'
 export * from './login-validation-factory'
