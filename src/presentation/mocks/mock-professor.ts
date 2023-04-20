@@ -1,5 +1,5 @@
-import type { ProfessorModel } from '../../domain/models'
-import type { AddProfessor, LoadProfessor } from '../../domain/usecases'
+import type { ProfessorModel, UpdateProfessorModel } from '../../domain/models'
+import type { AddProfessor, LoadProfessor, UpdateProfessor } from '../../domain/usecases'
 
 import { randUuid, randFullName, randEmail, randNumber } from '@ngneat/falso'
 
@@ -36,6 +36,20 @@ export class LoadProfessorSpy implements LoadProfessor {
   ]
 
   async load (): Promise<LoadProfessor.Result> {
+    return this.result
+  }
+}
+
+export class UpdateProfessorSpy implements UpdateProfessor {
+  params: UpdateProfessorModel
+  result: any
+  async update (professor: UpdateProfessorModel): Promise<any> {
+    this.params = professor
+    this.result = {
+      ...this.params,
+      data_cadastro: new Date(),
+      tempoIc: 10
+    }
     return this.result
   }
 }
