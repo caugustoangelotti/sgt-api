@@ -1,4 +1,4 @@
-import type { AddProfessor } from '../../../../domain/usecases/add-professor'
+import type { AddProfessor } from '../../../../domain/usecases'
 
 export interface AddProfessorRepository {
   add: (data: AddProfessorRepository.Params) => Promise<void>
