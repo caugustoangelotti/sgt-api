@@ -1,11 +1,13 @@
-import type { UpdateProfessor } from '../../domain/usecases'
-import { badRequest, noContent, ok, serverError } from '../helpers'
+import type { CheckProfessorById, UpdateProfessor } from '../../domain/usecases'
+import { InvalidParamError } from '../errors'
+import { badRequest, ok, serverError } from '../helpers'
 import type { Controller, HttpResponse, Validation } from '../protocols'
 
 export class UpdateProfessorController implements Controller {
   constructor (
     private readonly updateProfessor: UpdateProfessor,
-    private readonly validation: Validation
+    private readonly validation: Validation,
+    private readonly checkProfessorById: CheckProfessorById
   ) {}
 
   async handle (request: UpdateProfessorController.Request): Promise<HttpResponse> {
@@ -14,11 +16,12 @@ export class UpdateProfessorController implements Controller {
       if (error) {
         return badRequest(error)
       }
-      const professor = await this.updateProfessor.update(request)
-      if (professor) {
-        return ok(professor)
+      const exists = await this.checkProfessorById.checkById(request.id)
+      if (!exists) {
+        return badRequest(new InvalidParamError('surveyId'))
       }
-      return noContent()
+      const updatedProfessor = await this.updateProfessor.update(request)
+      return ok(updatedProfessor)
     } catch (error) {
       return serverError(error)
     }
