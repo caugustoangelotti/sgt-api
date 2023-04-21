@@ -18,7 +18,7 @@ export class UpdateProfessorController implements Controller {
       }
       const exists = await this.checkProfessorById.checkById(request.id)
       if (!exists) {
-        return badRequest(new InvalidParamError('surveyId'))
+        return badRequest(new InvalidParamError('id'))
       }
       const updatedProfessor = await this.updateProfessor.update(request)
       return ok(updatedProfessor)

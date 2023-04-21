@@ -107,7 +107,7 @@ describe('Update Professor Controller', () => {
     const { sut, checkProfessorByIdSpy } = makeSut()
     checkProfessorByIdSpy.result = false
     const httpResponse = await sut.handle(mockRequest())
-    expect(httpResponse).toEqual(badRequest(new InvalidParamError('surveyId')))
+    expect(httpResponse).toEqual(badRequest(new InvalidParamError('id')))
   })
 
   test('Should return 200 and professor data on success', async () => {
