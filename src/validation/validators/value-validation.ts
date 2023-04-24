@@ -9,6 +9,7 @@ export class FieldValueValidation implements Validation {
   ) {}
 
   validate (input: any): Error | any {
+    if (input[this.fieldName] === undefined) return
     const fieldData = input[this.fieldName]
     if (!(typeof fieldData === 'number') || fieldData < this.min || fieldData > this.max) {
       return new InvalidValueError(this.fieldName, this.min, this.max)

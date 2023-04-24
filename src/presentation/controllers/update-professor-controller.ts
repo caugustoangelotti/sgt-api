@@ -20,7 +20,16 @@ export class UpdateProfessorController implements Controller {
       if (!exists) {
         return badRequest(new InvalidParamError('id'))
       }
-      const updatedProfessor = await this.updateProfessor.update(request)
+      const professor = {
+        id: request.id
+      }
+      const fields = ['id', 'name', 'email', 'tempo_ic']
+      for (const field of fields) {
+        if (request[field]) {
+          professor[field] = request[field]
+        }
+      }
+      const updatedProfessor = await this.updateProfessor.update(professor)
       return ok(updatedProfessor)
     } catch (error) {
       return serverError(error)
