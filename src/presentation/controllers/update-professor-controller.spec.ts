@@ -1,9 +1,10 @@
 /*
   * mudar informacoes relativas ao professor
-  * as informacoes podem ser mudadas individualmente ex: nome : "nome"
+  * as informacoes podem ser alteradas individualmente ex: nome : "nome"
   * o professor deve ser identificado pelo id
   * o id deve ser valido
-  * o retorno deve ser um professor com as informacoes atualizadas
+  * informações opcionais: name, email e tempo_ic quaisquer outras devem ser descartadas
+  * o retorno deve ser um professor(id, name, email, tempo_ic) com as informacoes atualizadas
 */
 
 import { badRequest, ok, serverError } from '../helpers'
