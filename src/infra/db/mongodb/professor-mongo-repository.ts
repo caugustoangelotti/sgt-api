@@ -21,9 +21,10 @@ export class ProfessorMongoRepository implements AddProfessorRepository, LoadPro
     const { id, ...rest } = data
     const updatedProfessor = await professorCollection.findOneAndUpdate(
       { _id: new ObjectId(id) },
-      { $set: { ...rest } }, { returnDocument: 'after' }
+      { $set: { ...rest } },
+      { returnDocument: 'after' }
     )
-    return MongoHelper.map(updatedProfessor)
+    return MongoHelper.map(updatedProfessor.value)
   }
 
   async checkById (id: string): Promise<CheckProfessorByIdRepository.Result> {

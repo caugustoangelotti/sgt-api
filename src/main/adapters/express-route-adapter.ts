@@ -6,7 +6,7 @@ export const adaptRoute = (controller: Controller) => {
     const httpRequest: HttpRequest = {
       ...(req.body || {}),
       ...(req.params || {}),
-      accountId: req.accountId
+      account_id: req.account_id
     }
     const httpResponse = await controller.handle(httpRequest)
     if (httpResponse.statusCode >= 200 && httpResponse.statusCode <= 299) {

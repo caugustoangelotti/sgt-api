@@ -25,7 +25,7 @@ const makeSut = (): SutTypes => {
 const mockRequest = (): AddProfessorController.Request => ({
   name: randFullName(),
   email: randEmail(),
-  tempoIc: randNumber({ min: 1, max: 999 })
+  tempo_ic: randNumber({ min: 1, max: 999 })
 })
 
 describe('Add Professor Controller', () => {

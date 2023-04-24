@@ -16,21 +16,21 @@ export class LoadProfessorSpy implements LoadProfessor {
     id: randUuid(),
     name: randFullName(),
     email: randEmail(),
-    tempoIc: randNumber({ min: 1, max: 999 }),
+    tempo_ic: randNumber({ min: 1, max: 999 }),
     data_cadastro: new Date()
   },
   {
     id: randUuid(),
     name: randFullName(),
     email: randEmail(),
-    tempoIc: randNumber({ min: 1, max: 999 }),
+    tempo_ic: randNumber({ min: 1, max: 999 }),
     data_cadastro: new Date()
   },
   {
     id: randUuid(),
     name: randFullName(),
     email: randEmail(),
-    tempoIc: randNumber({ min: 1, max: 999 }),
+    tempo_ic: randNumber({ min: 1, max: 999 }),
     data_cadastro: new Date()
   }
   ]
@@ -48,7 +48,7 @@ export class UpdateProfessorSpy implements UpdateProfessor {
     this.result = {
       ...this.params,
       data_cadastro: new Date(),
-      tempoIc: 10
+      tempo_ic: 10
     }
     return this.result
   }

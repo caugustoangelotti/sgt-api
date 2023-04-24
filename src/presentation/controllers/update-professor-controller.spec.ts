@@ -117,7 +117,7 @@ describe('Update Professor Controller', () => {
     const response = {
       ...request,
       data_cadastro: new Date(),
-      tempoIc: 10
+      tempo_ic: 10
     }
     const httpResponse = await sut.handle(request)
     expect(httpResponse).toEqual(ok(response))

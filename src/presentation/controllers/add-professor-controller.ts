@@ -17,7 +17,7 @@ export class AddProfessorController implements Controller {
       const professor: AddProfessor.Params = {
         name: request.name,
         email: request.email,
-        tempoIc: request.tempoIc,
+        tempo_ic: request.tempo_ic,
         data_cadastro: new Date()
       }
 
@@ -32,6 +32,6 @@ export namespace AddProfessorController {
   export interface Request {
     name: string
     email: string
-    tempoIc: number
+    tempo_ic: number
   }
 }

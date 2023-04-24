@@ -2,9 +2,9 @@ import { ValidationComposite, RequiredFieldValidation, EmailValidation } from '.
 import type { Validation } from '../../../presentation/protocols'
 import { EmailValidatorAdapter } from '../../../infra/validators'
 
-export const makeAddProfessorValidation = (): ValidationComposite => {
+export const makeUpdateProfessorValidation = (): ValidationComposite => {
   const validations: Validation[] = []
-  for (const field of ['name', 'email', 'tempo_ic']) {
+  for (const field of ['id']) {
     validations.push(new RequiredFieldValidation(field))
   }
   validations.push(new EmailValidation('email', new EmailValidatorAdapter()))

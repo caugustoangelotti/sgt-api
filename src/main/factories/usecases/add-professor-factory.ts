@@ -1,6 +1,6 @@
-import type { AddProfessor } from '../../../domain/usecases/add-professor'
-import { ProfessorMongoRepository } from '../../../infra/db/mongodb/professor-mongo-repository'
-import { DbAddProfessor } from '../../../data/usecases/db-add-professor'
+import type { AddProfessor } from '../../../domain/usecases'
+import { ProfessorMongoRepository } from '../../../infra/db/mongodb'
+import { DbAddProfessor } from '../../../data/usecases'
 
 export const makeDbAddProfessor = (): AddProfessor => {
   const profesorMongoRepository = new ProfessorMongoRepository()

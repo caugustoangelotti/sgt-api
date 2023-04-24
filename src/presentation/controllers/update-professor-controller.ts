@@ -33,6 +33,6 @@ export namespace UpdateProfessorController {
     id: string
     name?: string
     email?: string
-    tempoIc?: number
+    tempo_ic?: number
   }
 }
