@@ -1,4 +1,4 @@
-import { ok, serverError } from '../helpers'
+import { badRequest, ok, serverError } from '../helpers'
 import { ValidationSpy } from '../mocks'
 import { AddDisciplinaSpy } from '../mocks/mock-disciplina'
 import { AddDisciplinaController } from './add-disciplina-controller'
@@ -43,6 +43,13 @@ describe('Add Disciplina Controller', () => {
     const request = mockRequest()
     await sut.handle(request)
     expect(validationSpy.input).toEqual(request)
+  })
+
+  test('Should return 400 if Validation fails', async () => {
+    const { sut, validationSpy } = makeSut()
+    validationSpy.error = new Error()
+    const httpResponse = await sut.handle(mockRequest())
+    expect(httpResponse).toEqual(badRequest(validationSpy.error))
   })
 
   test('Should call AddDisciplina with correct values', async () => {
