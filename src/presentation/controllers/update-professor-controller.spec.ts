@@ -57,6 +57,13 @@ describe('Update Professor Controller', () => {
     expect(validationSpy.input).toEqual(request)
   })
 
+  test('Should return 400 if Validation fails', async () => {
+    const { sut, validationSpy } = makeSut()
+    validationSpy.error = new Error()
+    const httpResponse = await sut.handle(mockRequest())
+    expect(httpResponse).toEqual(badRequest(validationSpy.error))
+  })
+
   test('Should call CheckSurveyById with correct value', async () => {
     const { sut, checkProfessorByIdSpy } = makeSut()
     const request = mockRequest()
