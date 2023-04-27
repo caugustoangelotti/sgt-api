@@ -19,7 +19,7 @@ import { ValidationSpy, AddTurmaSpy } from '../mocks'
 
 import MockDate from 'mockdate'
 import { randNumber, randTextRange, randWeekday, randWord } from '@ngneat/falso'
-import { badRequest } from '../helpers'
+import { badRequest, serverError } from '../helpers'
 
 interface SutTypes {
   sut: AddTurmaController
@@ -79,5 +79,15 @@ describe('Add Turma Controller', () => {
       data_cadastro: new Date()
     }
     expect(addTurmaSpy.params).toEqual(response)
+  })
+
+  test('Should return 500 if Validation throws', async () => {
+    const { sut, validationSpy } = makeSut()
+    const request = mockRequest()
+    jest.spyOn(validationSpy, 'validate').mockImplementationOnce(() => {
+      throw new Error()
+    })
+    const httpResponse = await sut.handle(request)
+    expect(httpResponse).toEqual(serverError(new Error()))
   })
 })
