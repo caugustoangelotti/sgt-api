@@ -1,4 +1,4 @@
-import type { AddDisciplina } from '../../domain/usecases/add-disciplina'
+import type { AddDisciplina } from '../../domain/usecases'
 
 export class AddDisciplinaSpy implements AddDisciplina {
   params: AddDisciplina.Params
