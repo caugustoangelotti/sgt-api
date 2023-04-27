@@ -1,5 +1,5 @@
-import type { AddProfessor } from '../../domain/usecases/add-professor'
-import { ok, badRequest, serverError } from '../helpers/http-helper'
+import type { AddProfessor } from '../../domain/usecases'
+import { ok, badRequest, serverError } from '../helpers'
 import type { Controller, Validation, HttpResponse } from '../protocols'
 
 export class AddProfessorController implements Controller {
@@ -14,7 +14,7 @@ export class AddProfessorController implements Controller {
       if (error) {
         return badRequest(error)
       }
-      const professor: AddProfessor.Params = {
+      const professor = {
         name: request.name,
         email: request.email,
         tempo_ic: request.tempo_ic,
@@ -22,7 +22,7 @@ export class AddProfessorController implements Controller {
       }
 
       await this.addProfessor.add(professor)
-      return ok(professor)
+      return ok({ ...professor, account_id: request.account_id })
     } catch (error) {
       return serverError(error)
     }
@@ -33,5 +33,6 @@ export namespace AddProfessorController {
     name: string
     email: string
     tempo_ic: number
+    account_id?: string
   }
 }

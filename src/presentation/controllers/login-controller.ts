@@ -29,5 +29,6 @@ export namespace LoginController {
   export interface Request {
     email: string
     password: string
+    account_id?: string
   }
 }

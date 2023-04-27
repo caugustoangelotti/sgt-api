@@ -21,7 +21,7 @@ export class AddDisciplinaController implements Controller {
         data_cadastro: new Date()
       }
       await this.addDisciplina.add(disciplina)
-      return ok(disciplina)
+      return ok({ ...disciplina, account_id: request.account_id })
     } catch (error) {
       return serverError(error)
     }
@@ -32,5 +32,6 @@ export namespace AddDisciplinaController {
     name: string
     semestre: number
     codigo: string
+    account_id?: string
   }
 }

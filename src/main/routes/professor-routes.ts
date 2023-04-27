@@ -7,5 +7,5 @@ import { adminAuth } from '../middlewares'
 export default (router: Router): void => {
   router.post('/professor', adminAuth, adaptRoute(makeAddProfessorController()))
   router.get('/professor', adminAuth, adaptRoute(makeLoadProfessorController()))
-  router.patch('/professor', adaptRoute(makeUpdateProfessorController()))
+  router.patch('/professor', adminAuth, adaptRoute(makeUpdateProfessorController()))
 }
