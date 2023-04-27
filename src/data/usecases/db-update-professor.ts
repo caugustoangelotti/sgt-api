@@ -1,5 +1,5 @@
 import type { UpdateProfessor } from '../../domain/usecases'
-import type { UpdateProfessorRepository } from '../protocols/db/professor'
+import type { UpdateProfessorRepository } from '../protocols'
 
 export class DbUpdateProfessor implements UpdateProfessor {
   constructor (private readonly updateProfessorRepository: UpdateProfessorRepository) {}

@@ -1,5 +1,5 @@
-import type { AddProfessor } from '../../domain/usecases/add-professor'
-import type { AddProfessorRepository } from '../../data/protocols/db/professor/add-professor-repository'
+import type { AddProfessor } from '../../domain/usecases'
+import type { AddProfessorRepository } from '../../data/protocols'
 
 export class DbAddProfessor implements AddProfessor {
   constructor (private readonly addProfessorRepository: AddProfessorRepository) {}
