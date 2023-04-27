@@ -30,7 +30,7 @@ interface SutTypes {
 const makeSut = (): SutTypes => {
   const addTurmaSpy = new AddTurmaSpy()
   const validationSpy = new ValidationSpy()
-  const sut = new AddTurmaController(validationSpy)
+  const sut = new AddTurmaController(validationSpy, addTurmaSpy)
   return {
     sut,
     addTurmaSpy,
@@ -68,5 +68,16 @@ describe('Add Turma Controller', () => {
     validationSpy.error = new Error()
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(badRequest(validationSpy.error))
+  })
+
+  test('Should call AddTurma with correct values', async () => {
+    const { sut, addTurmaSpy } = makeSut()
+    const request = mockRequest()
+    await sut.handle(request)
+    const response = {
+      ...request,
+      data_cadastro: new Date()
+    }
+    expect(addTurmaSpy.params).toEqual(response)
   })
 })
