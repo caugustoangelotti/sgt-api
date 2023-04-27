@@ -19,7 +19,7 @@ import { ValidationSpy, AddTurmaSpy } from '../mocks'
 
 import MockDate from 'mockdate'
 import { randNumber, randTextRange, randWeekday, randWord } from '@ngneat/falso'
-import { badRequest, serverError } from '../helpers'
+import { badRequest, noContent, serverError } from '../helpers'
 
 interface SutTypes {
   sut: AddTurmaController
@@ -99,5 +99,12 @@ describe('Add Turma Controller', () => {
     })
     const httpResponse = await sut.handle(request)
     expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
+  test('Should return 204 on success', async () => {
+    const { sut } = makeSut()
+    const request = mockRequest()
+    const httpResponse = await sut.handle(request)
+    expect(httpResponse).toEqual(noContent())
   })
 })
