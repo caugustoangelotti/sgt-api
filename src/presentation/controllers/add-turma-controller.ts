@@ -1,5 +1,5 @@
 import type { AddTurma } from '../../domain/usecases'
-import { badRequest, serverError } from '../helpers'
+import { badRequest, noContent, serverError } from '../helpers'
 import type { Controller, HttpResponse, Validation } from '../protocols'
 
 export class AddTurmaController implements Controller {
@@ -8,7 +8,7 @@ export class AddTurmaController implements Controller {
     private readonly addTurma: AddTurma
   ) {}
 
-  async handle (request: any): Promise<HttpResponse> {
+  async handle (request: AddTurmaController.Request): Promise<HttpResponse> {
     try {
       const error = this.validation.validate(request)
       if (error) {
@@ -28,9 +28,26 @@ export class AddTurmaController implements Controller {
         }
       }
       await this.addTurma.add(turma)
+      return noContent()
     } catch (error) {
       return serverError(error)
     }
-    return null as any
+  }
+}
+
+export namespace AddTurmaController {
+  export interface Request {
+    disciplina: string
+    horarios: Horario[]
+    modelo: string
+    semestre: number
+    professor?: string
+    tempo_ic?: number
+  }
+
+  interface Horario {
+    dia: string
+    horaInicio: string
+    horaFim: string
   }
 }
