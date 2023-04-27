@@ -72,6 +72,16 @@ describe('Add Professor Controller', () => {
     expect(httpResponse).toEqual(serverError(new Error()))
   })
 
+  test('Should return 500 if Validation throws', async () => {
+    const { sut, validationSpy } = makeSut()
+    const request = mockRequest()
+    jest.spyOn(validationSpy, 'validate').mockImplementationOnce(() => {
+      throw new Error()
+    })
+    const httpResponse = await sut.handle(request)
+    expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
   test('Should return 200 and professor data on success', async () => {
     const { sut } = makeSut()
     const request = mockRequest()
