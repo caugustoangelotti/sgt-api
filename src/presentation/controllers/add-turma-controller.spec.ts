@@ -90,4 +90,14 @@ describe('Add Turma Controller', () => {
     const httpResponse = await sut.handle(request)
     expect(httpResponse).toEqual(serverError(new Error()))
   })
+
+  test('Should return 500 if AddTurma throws', async () => {
+    const { sut, addTurmaSpy } = makeSut()
+    const request = mockRequest()
+    jest.spyOn(addTurmaSpy, 'add').mockImplementationOnce(() => {
+      throw new Error()
+    })
+    const httpResponse = await sut.handle(request)
+    expect(httpResponse).toEqual(serverError(new Error()))
+  })
 })
