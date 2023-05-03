@@ -3,7 +3,6 @@ export interface TurmaModel {
   disciplina: string
   horarios: Horario[]
   modelo: string
-  semestre: number
   professor?: string
   tempo_ic?: number
   data_cadastro: Date

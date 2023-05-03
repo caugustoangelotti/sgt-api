@@ -17,7 +17,6 @@ export class LoadTurmaSpy {
       { dia: randWeekday(), horaInicio: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, horaFim: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}` }
     ],
     modelo: randWord(),
-    semestre: randNumber({ min: 1, max: 999 }),
     data_cadastro: new Date()
   }
   ]
