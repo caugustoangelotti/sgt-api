@@ -118,7 +118,7 @@ describe('Update Professor Controller', () => {
     expect(httpResponse).toEqual(badRequest(new InvalidParamError('id')))
   })
 
-  test('Should return 200 and professor data on success', async () => {
+  test('Should return 200 and updated professor data on success', async () => {
     const { sut } = makeSut()
     const request = mockRequest()
 
