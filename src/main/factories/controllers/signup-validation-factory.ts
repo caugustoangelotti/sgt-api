@@ -1,4 +1,4 @@
-import { ValidationComposite, RequiredFieldValidation, CompareFieldsValidation, EmailValidation } from '../../../validation/validators'
+import { ValidationComposite, RequiredFieldValidation, CompareFieldsValidation, EmailValidation, FieldLengthValidation } from '../../../validation/validators'
 import type { Validation } from '../../../presentation/protocols'
 import { EmailValidatorAdapter } from '../../../infra/validators'
 
@@ -8,6 +8,7 @@ export const makeSignUpValidation = (): ValidationComposite => {
     validations.push(new RequiredFieldValidation(field))
   }
   validations.push(new CompareFieldsValidation('password', 'passwordConfirmation'))
+  validations.push(new FieldLengthValidation('password', 6, 72))
   validations.push(new EmailValidation('email', new EmailValidatorAdapter()))
   return new ValidationComposite(validations)
 }
