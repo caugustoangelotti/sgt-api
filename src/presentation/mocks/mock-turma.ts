@@ -18,6 +18,16 @@ export class LoadTurmaSpy {
     ],
     modelo: randWord(),
     data_cadastro: new Date()
+  },
+  {
+    id: randUuid(),
+    disciplina: randTextRange({ min: 40, max: 70 }),
+    horarios: [
+      { dia: randWeekday(), horaInicio: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, horaFim: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}` },
+      { dia: randWeekday(), horaInicio: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, horaFim: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}` }
+    ],
+    modelo: randWord(),
+    data_cadastro: new Date()
   }
   ]
 
