@@ -1,5 +1,6 @@
 export * from './add-professor-factory'
 export * from './add-turma-factory'
+export * from './load-turma-factory'
 export * from './add-account-factory'
 export * from './add-disciplina-factory'
 export * from './authentication-factory'
