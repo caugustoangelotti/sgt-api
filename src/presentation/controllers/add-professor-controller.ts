@@ -17,8 +17,8 @@ export class AddProfessorController implements Controller {
       const professor = {
         name: request.name,
         email: request.email,
-        tempo_ic: request.tempo_ic,
-        data_cadastro: new Date()
+        tempoIc: request.tempoIc,
+        dataCadastro: new Date()
       }
 
       await this.addProfessor.add(professor)
@@ -32,7 +32,7 @@ export namespace AddProfessorController {
   export interface Request {
     name: string
     email: string
-    tempo_ic: number
+    tempoIc: number
     account_id?: string
   }
 }

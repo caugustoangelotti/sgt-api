@@ -18,9 +18,9 @@ export class AddTurmaController implements Controller {
         disciplina: request.disciplina,
         horarios: request.horarios,
         modelo: request.modelo,
-        data_cadastro: new Date()
+        dataCadastro: new Date()
       }
-      const optionalFields = ['professor', 'tempo_ic']
+      const optionalFields = ['professor', 'tempoIc']
       for (const field of optionalFields) {
         if (request[field]) {
           turma[field] = request[field]
@@ -40,7 +40,7 @@ export namespace AddTurmaController {
     horarios: Horario[]
     modelo: string
     professor?: string
-    tempo_ic?: number
+    tempoIc?: number
   }
 
   interface Horario {

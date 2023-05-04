@@ -3,8 +3,8 @@
   * as informacoes podem ser alteradas individualmente ex: nome : "nome"
   * o professor deve ser identificado pelo id
   * o id deve ser valido
-  * informações opcionais: name, email e tempo_ic quaisquer outras devem ser descartadas
-  * o retorno deve ser um professor(id, name, email, tempo_ic) com as informacoes atualizadas
+  * informações opcionais: name, email e tempoIc quaisquer outras devem ser descartadas
+  * o retorno deve ser um professor(id, name, email, tempoIc) com as informacoes atualizadas
 */
 
 import { badRequest, ok, serverError } from '../helpers'
@@ -35,10 +35,11 @@ const makeSut = (): SutTypes => {
   }
 }
 
-const mockRequest = (): UpdateProfessorController.Request => ({
+const mockRequest = (): any => ({
   id: randUuid(),
   name: randFullName(),
-  email: randEmail()
+  email: randEmail(),
+  any_field: 'any_value'
 })
 
 describe('Update Professor Controller', () => {
@@ -75,8 +76,11 @@ describe('Update Professor Controller', () => {
     const { sut, updateProfessorSpy } = makeSut()
     const request = mockRequest()
     await sut.handle(request)
+    const { id, name, email } = request
     const response = {
-      ...request
+      id,
+      name,
+      email
     }
     expect(updateProfessorSpy.params).toEqual(response)
   })
@@ -121,11 +125,13 @@ describe('Update Professor Controller', () => {
   test('Should return 200 and updated professor data on success', async () => {
     const { sut } = makeSut()
     const request = mockRequest()
-
+    const { id, name, email } = request
     const response = {
-      ...request,
-      data_cadastro: new Date(),
-      tempo_ic: 10
+      id,
+      name,
+      email,
+      tempoIc: 10,
+      dataCadastro: new Date()
     }
     const httpResponse = await sut.handle(request)
     expect(httpResponse).toEqual(ok(response))

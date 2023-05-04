@@ -17,7 +17,7 @@ export class LoadTurmaSpy {
       { dia: randWeekday(), horaInicio: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, horaFim: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}` }
     ],
     modelo: randWord(),
-    data_cadastro: new Date()
+    dataCadastro: new Date()
   },
   {
     id: randUuid(),
@@ -27,7 +27,7 @@ export class LoadTurmaSpy {
       { dia: randWeekday(), horaInicio: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, horaFim: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}` }
     ],
     modelo: randWord(),
-    data_cadastro: new Date()
+    dataCadastro: new Date()
   }
   ]
 

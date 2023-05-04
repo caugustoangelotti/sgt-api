@@ -18,7 +18,7 @@ export class AddDisciplinaController implements Controller {
         name: request.name,
         semestre: request.semestre,
         codigo: request.codigo,
-        data_cadastro: new Date()
+        dataCadastro: new Date()
       }
       await this.addDisciplina.add(disciplina)
       return ok({ ...disciplina, account_id: request.account_id })

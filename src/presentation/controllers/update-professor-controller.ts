@@ -23,7 +23,7 @@ export class UpdateProfessorController implements Controller {
       const professor = {
         id: request.id
       }
-      const fields = ['id', 'name', 'email', 'tempo_ic']
+      const fields = ['id', 'name', 'email', 'tempoIc']
       for (const field of fields) {
         if (request[field]) {
           professor[field] = request[field]
@@ -42,6 +42,6 @@ export namespace UpdateProfessorController {
     id: string
     name?: string
     email?: string
-    tempo_ic?: number
+    tempoIc?: number
   }
 }

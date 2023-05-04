@@ -76,7 +76,7 @@ describe('Add Turma Controller', () => {
     await sut.handle(request)
     const response = {
       ...request,
-      data_cadastro: new Date()
+      dataCadastro: new Date()
     }
     expect(addTurmaSpy.params).toEqual(response)
   })

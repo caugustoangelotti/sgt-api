@@ -4,8 +4,8 @@ export interface TurmaModel {
   horarios: Horario[]
   modelo: string
   professor?: string
-  tempo_ic?: number
-  data_cadastro: Date
+  tempoIc?: number
+  dataCadastro: Date
 }
 
 interface Horario {

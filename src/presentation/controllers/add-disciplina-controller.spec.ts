@@ -58,7 +58,7 @@ describe('Add Disciplina Controller', () => {
     await sut.handle(request)
     const response = {
       ...request,
-      data_cadastro: new Date()
+      dataCadastro: new Date()
     }
     expect(addDisciplinaSpy.params).toEqual(response)
   })
@@ -78,7 +78,7 @@ describe('Add Disciplina Controller', () => {
     const request = mockRequest()
     const response = {
       ...request,
-      data_cadastro: new Date()
+      dataCadastro: new Date()
     }
     const httpResponse = await sut.handle(request)
     expect(httpResponse).toEqual(ok(response))

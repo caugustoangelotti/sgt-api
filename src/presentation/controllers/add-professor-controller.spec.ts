@@ -22,10 +22,10 @@ const makeSut = (): SutTypes => {
   }
 }
 
-const mockRequest = (): AddProfessorController.Request => ({
+const mockRequest = (): any => ({
   name: randFullName(),
   email: randEmail(),
-  tempo_ic: randNumber({ min: 1, max: 999 })
+  tempoIc: randNumber({ min: 1, max: 999 })
 })
 
 describe('Add Professor Controller', () => {
@@ -57,7 +57,7 @@ describe('Add Professor Controller', () => {
     await sut.handle(request)
     const response = {
       ...request,
-      data_cadastro: new Date()
+      dataCadastro: new Date()
     }
     expect(addProfessorSpy.params).toEqual(response)
   })
@@ -88,7 +88,7 @@ describe('Add Professor Controller', () => {
 
     const response = {
       ...request,
-      data_cadastro: new Date()
+      dataCadastro: new Date()
     }
     const httpResponse = await sut.handle(request)
     expect(httpResponse).toEqual(ok(response))

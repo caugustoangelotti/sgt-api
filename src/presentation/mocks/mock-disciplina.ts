@@ -15,14 +15,14 @@ export class LoadDisciplinaSpy {
     name: randTextRange({ min: 40, max: 70 }),
     semestre: randNumber({ min: 1, max: 8 }),
     codigo: randNumber({ min: 10000000, max: 99999999 }).toString(),
-    data_cadastro: new Date()
+    dataCadastro: new Date()
   },
   {
     id: randUuid(),
     name: randTextRange({ min: 40, max: 70 }),
     semestre: randNumber({ min: 1, max: 8 }),
     codigo: randNumber({ min: 10000000, max: 99999999 }).toString(),
-    data_cadastro: new Date()
+    dataCadastro: new Date()
   }
   ]
 
