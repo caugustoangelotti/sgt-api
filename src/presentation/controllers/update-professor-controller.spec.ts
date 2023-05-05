@@ -95,7 +95,7 @@ describe('Update Professor Controller', () => {
     expect(httpResponse).toEqual(serverError(new Error()))
   })
 
-  test('Should return 500 if CheckSurveyById throws', async () => {
+  test('Should return 500 if CheckDisciplinaById throws', async () => {
     const { sut, checkProfessorByIdSpy } = makeSut()
     const request = mockRequest()
     jest.spyOn(checkProfessorByIdSpy, 'checkById').mockImplementationOnce(() => {
@@ -115,7 +115,7 @@ describe('Update Professor Controller', () => {
     expect(httpResponse).toEqual(serverError(new Error()))
   })
 
-  test('Should return 400 if CheckSurveyById returns false', async () => {
+  test('Should return 400 if CheckDisciplinaById returns false', async () => {
     const { sut, checkProfessorByIdSpy } = makeSut()
     checkProfessorByIdSpy.result = false
     const httpResponse = await sut.handle(mockRequest())
