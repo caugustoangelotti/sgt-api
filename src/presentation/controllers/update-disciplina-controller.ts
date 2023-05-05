@@ -1,6 +1,6 @@
 import type { CheckDisciplinaById } from '../../domain/usecases'
 import { InvalidParamError } from '../errors'
-import { badRequest, noContent, ok } from '../helpers'
+import { badRequest, noContent } from '../helpers'
 import type { Controller, HttpResponse, Validation } from '../protocols'
 
 export class UpdateDisciplinaController implements Controller {
@@ -16,7 +16,7 @@ export class UpdateDisciplinaController implements Controller {
     }
     const exists = await this.checkDisciplinaById.checkById(request.id)
     if (!exists) {
-      return ok(new InvalidParamError('id'))
+      return badRequest(new InvalidParamError('id'))
     }
     return noContent()
   }
