@@ -17,7 +17,7 @@ const makeSut = (): SutTypes => {
   const updateDisciplinaSpy = new UpdateDisciplinaSpy()
   const validationSpy = new ValidationSpy()
   const checkDisciplinaByIdSpy = new CheckDisciplinaByIdSpy()
-  const sut = new UpdateDisciplinaController(validationSpy, checkDisciplinaByIdSpy)
+  const sut = new UpdateDisciplinaController(validationSpy, checkDisciplinaByIdSpy, updateDisciplinaSpy)
   return {
     sut,
     updateDisciplinaSpy,
@@ -55,6 +55,20 @@ describe('Update Disciplina Controller', () => {
     const request = mockRequest()
     await sut.handle(request)
     expect(checkDisciplinaByIdSpy.id).toBe(request.id)
+  })
+
+  test('Should call UpdateDisciplina with correct values', async () => {
+    const { sut, updateDisciplinaSpy } = makeSut()
+    const request = mockRequest()
+    await sut.handle(request)
+    const { id, name, semestre, codigo } = request
+    const mockResponse = {
+      id,
+      name,
+      semestre,
+      codigo
+    }
+    expect(updateDisciplinaSpy.params).toEqual(mockResponse)
   })
 
   test('Should return 400 if Validation fails', async () => {
