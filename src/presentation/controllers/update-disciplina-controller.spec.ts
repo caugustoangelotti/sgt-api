@@ -3,7 +3,7 @@ import { CheckDisciplinaByIdSpy, UpdateDisciplinaSpy, ValidationSpy } from '../m
 import MockDate from 'mockdate'
 import { randUuid, randNumber, randTextRange } from '@ngneat/falso'
 import { UpdateDisciplinaController } from './update-disciplina-controller'
-import { badRequest } from '../helpers'
+import { badRequest, serverError } from '../helpers'
 import { InvalidParamError } from '../errors'
 
 interface SutTypes {
@@ -83,5 +83,15 @@ describe('Update Disciplina Controller', () => {
     checkDisciplinaByIdSpy.result = false
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(badRequest(new InvalidParamError('id')))
+  })
+
+  test('Should return 500 if Validation throws', async () => {
+    const { sut, validationSpy } = makeSut()
+    const request = mockRequest()
+    jest.spyOn(validationSpy, 'validate').mockImplementationOnce(() => {
+      throw new Error()
+    })
+    const httpResponse = await sut.handle(request)
+    expect(httpResponse).toEqual(serverError(new Error()))
   })
 })
