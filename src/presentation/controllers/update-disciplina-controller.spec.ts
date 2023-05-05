@@ -1,10 +1,10 @@
 import { CheckDisciplinaByIdSpy, UpdateDisciplinaSpy, ValidationSpy } from '../mocks'
-
-import MockDate from 'mockdate'
-import { randUuid, randNumber, randTextRange } from '@ngneat/falso'
 import { UpdateDisciplinaController } from './update-disciplina-controller'
 import { badRequest, ok, serverError } from '../helpers'
 import { InvalidParamError } from '../errors'
+
+import MockDate from 'mockdate'
+import { randUuid, randNumber, randTextRange } from '@ngneat/falso'
 
 interface SutTypes {
   sut: UpdateDisciplinaController
