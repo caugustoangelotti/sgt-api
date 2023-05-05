@@ -3,7 +3,7 @@ import { CheckDisciplinaByIdSpy, UpdateDisciplinaSpy, ValidationSpy } from '../m
 import MockDate from 'mockdate'
 import { randUuid, randNumber, randTextRange } from '@ngneat/falso'
 import { UpdateDisciplinaController } from './update-disciplina-controller'
-import { badRequest, serverError } from '../helpers'
+import { badRequest, ok, serverError } from '../helpers'
 import { InvalidParamError } from '../errors'
 
 interface SutTypes {
@@ -113,5 +113,20 @@ describe('Update Disciplina Controller', () => {
     })
     const httpResponse = await sut.handle(request)
     expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
+  test('Should return 200 and updated Disciplina data on success', async () => {
+    const { sut } = makeSut()
+    const request = mockRequest()
+    const { id, name, semestre, codigo } = request
+    const response = {
+      id,
+      name,
+      semestre,
+      codigo,
+      dataCadastro: new Date()
+    }
+    const httpResponse = await sut.handle(request)
+    expect(httpResponse).toEqual(ok(response))
   })
 })
