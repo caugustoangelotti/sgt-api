@@ -4,6 +4,7 @@ import MockDate from 'mockdate'
 import { randUuid, randNumber, randTextRange } from '@ngneat/falso'
 import { UpdateDisciplinaController } from './update-disciplina-controller'
 import { badRequest } from '../helpers'
+import { InvalidParamError } from '../errors'
 
 interface SutTypes {
   sut: UpdateDisciplinaController
@@ -61,5 +62,12 @@ describe('Update Disciplina Controller', () => {
     const request = mockRequest()
     await sut.handle(request)
     expect(checkDisciplinaByIdSpy.id).toBe(request.id)
+  })
+
+  test('Should return 400 if CheckDisciplinaById returns false', async () => {
+    const { sut, checkDisciplinaByIdSpy } = makeSut()
+    checkDisciplinaByIdSpy.result = false
+    const httpResponse = await sut.handle(mockRequest())
+    expect(httpResponse).toEqual(badRequest(new InvalidParamError('id')))
   })
 })
