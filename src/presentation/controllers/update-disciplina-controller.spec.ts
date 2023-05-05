@@ -3,6 +3,7 @@ import { CheckDisciplinaByIdSpy, UpdateDisciplinaSpy, ValidationSpy } from '../m
 import MockDate from 'mockdate'
 import { randUuid, randNumber, randTextRange } from '@ngneat/falso'
 import { UpdateDisciplinaController } from './update-disciplina-controller'
+import { badRequest } from '../helpers'
 
 interface SutTypes {
   sut: UpdateDisciplinaController
@@ -15,7 +16,7 @@ const makeSut = (): SutTypes => {
   const updateDisciplinaSpy = new UpdateDisciplinaSpy()
   const validationSpy = new ValidationSpy()
   const checkDisciplinaByIdSpy = new CheckDisciplinaByIdSpy()
-  const sut = new UpdateDisciplinaController(validationSpy)
+  const sut = new UpdateDisciplinaController(validationSpy, checkDisciplinaByIdSpy)
   return {
     sut,
     updateDisciplinaSpy,
@@ -46,5 +47,19 @@ describe('Update Disciplina Controller', () => {
     const request = mockRequest()
     await sut.handle(request)
     expect(validationSpy.input).toEqual(request)
+  })
+
+  test('Should return 400 if Validation fails', async () => {
+    const { sut, validationSpy } = makeSut()
+    validationSpy.error = new Error()
+    const httpResponse = await sut.handle(mockRequest())
+    expect(httpResponse).toEqual(badRequest(validationSpy.error))
+  })
+
+  test('Should call CheckDisciplinaById with correct value', async () => {
+    const { sut, checkDisciplinaByIdSpy } = makeSut()
+    const request = mockRequest()
+    await sut.handle(request)
+    expect(checkDisciplinaByIdSpy.id).toBe(request.id)
   })
 })
