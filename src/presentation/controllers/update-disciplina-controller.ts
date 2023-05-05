@@ -1,16 +1,24 @@
+import type { CheckDisciplinaById } from '../../domain/usecases'
+import { InvalidParamError } from '../errors'
+import { badRequest, noContent, ok } from '../helpers'
 import type { Controller, HttpResponse, Validation } from '../protocols'
 
 export class UpdateDisciplinaController implements Controller {
   constructor (
-    private readonly validation: Validation
+    private readonly validation: Validation,
+    private readonly checkDisciplinaById: CheckDisciplinaById
   ) {}
 
   async handle (request: UpdateDisciplinaController.Request): Promise<HttpResponse> {
     const error = this.validation.validate(request)
     if (error) {
-      return await Promise.resolve({ statusCode: 400, body: error })
+      return badRequest(error)
     }
-    return await Promise.resolve({ statusCode: 200, body: {} })
+    const exists = await this.checkDisciplinaById.checkById(request.id)
+    if (!exists) {
+      return ok(new InvalidParamError('id'))
+    }
+    return noContent()
   }
 }
 
