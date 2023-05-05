@@ -50,18 +50,18 @@ describe('Update Disciplina Controller', () => {
     expect(validationSpy.input).toEqual(request)
   })
 
-  test('Should return 400 if Validation fails', async () => {
-    const { sut, validationSpy } = makeSut()
-    validationSpy.error = new Error()
-    const httpResponse = await sut.handle(mockRequest())
-    expect(httpResponse).toEqual(badRequest(validationSpy.error))
-  })
-
   test('Should call CheckDisciplinaById with correct value', async () => {
     const { sut, checkDisciplinaByIdSpy } = makeSut()
     const request = mockRequest()
     await sut.handle(request)
     expect(checkDisciplinaByIdSpy.id).toBe(request.id)
+  })
+
+  test('Should return 400 if Validation fails', async () => {
+    const { sut, validationSpy } = makeSut()
+    validationSpy.error = new Error()
+    const httpResponse = await sut.handle(mockRequest())
+    expect(httpResponse).toEqual(badRequest(validationSpy.error))
   })
 
   test('Should return 400 if CheckDisciplinaById returns false', async () => {
