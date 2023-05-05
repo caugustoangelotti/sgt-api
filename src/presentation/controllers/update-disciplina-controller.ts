@@ -1,6 +1,6 @@
 import type { CheckDisciplinaById, UpdateDisciplina } from '../../domain/usecases'
 import { InvalidParamError } from '../errors'
-import { badRequest, ok } from '../helpers'
+import { badRequest, ok, serverError } from '../helpers'
 import type { Controller, HttpResponse, Validation } from '../protocols'
 
 export class UpdateDisciplinaController implements Controller {
@@ -11,25 +11,29 @@ export class UpdateDisciplinaController implements Controller {
   ) {}
 
   async handle (request: UpdateDisciplinaController.Request): Promise<HttpResponse> {
-    const error = this.validation.validate(request)
-    if (error) {
-      return badRequest(error)
-    }
-    const exists = await this.checkDisciplinaById.checkById(request.id)
-    if (!exists) {
-      return badRequest(new InvalidParamError('id'))
-    }
-    const disciplina = {
-      id: request.id
-    }
-    const fields = ['id', 'name', 'semestre', 'codigo']
-    for (const field of fields) {
-      if (request[field]) {
-        disciplina[field] = request[field]
+    try {
+      const error = this.validation.validate(request)
+      if (error) {
+        return badRequest(error)
       }
+      const exists = await this.checkDisciplinaById.checkById(request.id)
+      if (!exists) {
+        return badRequest(new InvalidParamError('id'))
+      }
+      const disciplina = {
+        id: request.id
+      }
+      const fields = ['id', 'name', 'semestre', 'codigo']
+      for (const field of fields) {
+        if (request[field]) {
+          disciplina[field] = request[field]
+        }
+      }
+      const updatedDisciplina = await this.updateDisciplina.update(disciplina)
+      return ok(updatedDisciplina)
+    } catch (error) {
+      return serverError(error)
     }
-    const updatedDisciplina = await this.updateDisciplina.update(disciplina)
-    return ok(updatedDisciplina)
   }
 }
 
