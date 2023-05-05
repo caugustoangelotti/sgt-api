@@ -95,10 +95,20 @@ describe('Update Disciplina Controller', () => {
     expect(httpResponse).toEqual(serverError(new Error()))
   })
 
-  test('Should return 500 if CheckProfessorById throws', async () => {
+  test('Should return 500 if CheckDisciplinaById throws', async () => {
     const { sut, checkDisciplinaByIdSpy } = makeSut()
     const request = mockRequest()
     jest.spyOn(checkDisciplinaByIdSpy, 'checkById').mockImplementationOnce(() => {
+      throw new Error()
+    })
+    const httpResponse = await sut.handle(request)
+    expect(httpResponse).toEqual(serverError(new Error()))
+  })
+
+  test('Should return 500 if UpdateDisciplina throws', async () => {
+    const { sut, updateDisciplinaSpy } = makeSut()
+    const request = mockRequest()
+    jest.spyOn(updateDisciplinaSpy, 'update').mockImplementationOnce(() => {
       throw new Error()
     })
     const httpResponse = await sut.handle(request)
