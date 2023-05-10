@@ -6,5 +6,5 @@ import { cordenadorAuth } from '../middlewares'
 
 export default (router: Router): void => {
   router.post('/turma', cordenadorAuth, adaptRoute(makeAddTurmaController()))
-  router.get('/turma', cordenadorAuth, adaptRoute(makeLoadTurmaController()))
+  router.get('/turmas', cordenadorAuth, adaptRoute(makeLoadTurmaController()))
 }

@@ -6,6 +6,6 @@ import { cordenadorAuth } from '../middlewares'
 
 export default (router: Router): void => {
   router.post('/disciplina', cordenadorAuth, adaptRoute(makeAddDisciplinaController()))
-  router.get('/disciplina', cordenadorAuth, adaptRoute(makeLoadDisciplinaController()))
+  router.get('/disciplinas', cordenadorAuth, adaptRoute(makeLoadDisciplinaController()))
   router.patch('/disciplina', cordenadorAuth, adaptRoute(makeUpdateDisciplinaController()))
 }
