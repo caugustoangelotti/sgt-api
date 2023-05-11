@@ -43,5 +43,6 @@ export namespace UpdateDisciplinaController {
     name?: string
     semestre?: string
     codigo?: number
+    cargaHoraria?: number
   }
 }

@@ -3,4 +3,5 @@ export interface UpdateDisciplinaModel {
   name?: string
   semestre?: string
   codigo?: string
+  cargaHoraria?: number
 }

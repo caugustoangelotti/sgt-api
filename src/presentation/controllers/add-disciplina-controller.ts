@@ -18,6 +18,7 @@ export class AddDisciplinaController implements Controller {
         name: request.name,
         semestre: request.semestre,
         codigo: request.codigo,
+        cargaHoraria: request.cargaHoraria,
         dataCadastro: new Date()
       }
       await this.addDisciplina.add(disciplina)
@@ -32,6 +33,7 @@ export namespace AddDisciplinaController {
     name: string
     semestre: number
     codigo: string
+    cargaHoraria: number
     account_id?: string
   }
 }

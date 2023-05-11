@@ -3,5 +3,6 @@ export interface DisciplinaModel {
   name: string
   semestre: number
   codigo: string
+  cargaHoraria: number
   dataCadastro: Date
 }

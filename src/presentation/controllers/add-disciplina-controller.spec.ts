@@ -26,6 +26,7 @@ const makeSut = (): SutTypes => {
 const mockRequest = (): AddDisciplinaController.Request => ({
   name: randTextRange({ min: 40, max: 70 }),
   semestre: randNumber({ min: 1, max: 8 }),
+  cargaHoraria: randNumber({ min: 20, max: 100 }),
   codigo: randUuid()
 })
 

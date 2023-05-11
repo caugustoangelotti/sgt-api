@@ -1,5 +1,6 @@
 import { DataSource } from 'typeorm'
 import env from '../../../main/config/env'
+import path from 'path'
 
 export const PostgresHelper = {
   client: null as unknown as DataSource,
@@ -8,8 +9,8 @@ export const PostgresHelper = {
     const ds = new DataSource({
       type: 'postgres',
       url: env.postgresUrl,
-      entities: ['E:\\DEV\\sgt-api\\src\\data\\entities\\*.ts'],
-      migrations: ['../../data/migrations/*.ts'],
+      entities: [path.join(__dirname + '../../../../data/entities/*.ts')],
+      migrations: [path.join(__dirname + '../../../../data/migrations/*.ts')],
       synchronize: true,
       logging: false
     })
