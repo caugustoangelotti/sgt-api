@@ -3,9 +3,12 @@
     "outDir": "dist",
     "module": "commonjs",
     "target": "es2019",
+    "lib": ["es6"],
     "esModuleInterop": true,
     "strictNullChecks": true,
     "noImplicitReturns": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "sourceMap": true,
     "rootDirs": ["src", "tests"]
   },
