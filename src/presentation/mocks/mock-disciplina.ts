@@ -1,6 +1,6 @@
 import type { DisciplinaModel, UpdateDisciplinaModel } from '../../domain/models'
 import type { AddDisciplina, CheckDisciplinaById, LoadDisciplina, UpdateDisciplina } from '../../domain/usecases'
-import { randUuid, randNumber, randTextRange } from '@ngneat/falso'
+import { randNumber, randTextRange } from '@ngneat/falso'
 
 export class AddDisciplinaSpy implements AddDisciplina {
   params: AddDisciplina.Params
@@ -11,7 +11,7 @@ export class AddDisciplinaSpy implements AddDisciplina {
 }
 export class LoadDisciplinaSpy {
   result: DisciplinaModel[] = [{
-    id: randUuid(),
+    id: randNumber({ min: 10000000, max: 99999999 }),
     name: randTextRange({ min: 40, max: 70 }),
     semestre: randNumber({ min: 1, max: 8 }),
     codigo: randNumber({ min: 10000000, max: 99999999 }).toString(),
@@ -19,7 +19,7 @@ export class LoadDisciplinaSpy {
     dataCadastro: new Date()
   },
   {
-    id: randUuid(),
+    id: randNumber({ min: 10000000, max: 99999999 }),
     name: randTextRange({ min: 40, max: 70 }),
     semestre: randNumber({ min: 1, max: 8 }),
     codigo: randNumber({ min: 10000000, max: 99999999 }).toString(),
@@ -34,10 +34,10 @@ export class LoadDisciplinaSpy {
 }
 
 export class CheckDisciplinaByIdSpy implements CheckDisciplinaById {
-  id: string
+  id: number
   result = true
 
-  async checkById (id: string): Promise<CheckDisciplinaById.Result> {
+  async checkById (id: number): Promise<CheckDisciplinaById.Result> {
     this.id = id
     return this.result
   }

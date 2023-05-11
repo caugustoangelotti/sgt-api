@@ -1,5 +1,5 @@
 export interface CheckDisciplinaByIdRepository {
-  checkById: (id: string) => Promise<CheckDisciplinaByIdRepository.Result>
+  checkById: (id: number) => Promise<CheckDisciplinaByIdRepository.Result>
 }
 
 export namespace CheckDisciplinaByIdRepository {

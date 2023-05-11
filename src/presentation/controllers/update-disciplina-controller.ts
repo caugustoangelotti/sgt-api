@@ -39,7 +39,7 @@ export class UpdateDisciplinaController implements Controller {
 
 export namespace UpdateDisciplinaController {
   export interface Request {
-    id: string
+    id: number
     name?: string
     semestre?: string
     codigo?: number

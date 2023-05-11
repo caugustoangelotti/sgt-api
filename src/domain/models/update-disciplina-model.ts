@@ -1,5 +1,5 @@
 export interface UpdateDisciplinaModel {
-  id: string
+  id: number
   name?: string
   semestre?: string
   codigo?: string

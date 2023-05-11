@@ -1,5 +1,5 @@
 export interface DisciplinaModel {
-  id: string
+  id: number
   name: string
   semestre: number
   codigo: string

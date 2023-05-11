@@ -9,8 +9,8 @@ export const PostgresHelper = {
     const ds = new DataSource({
       type: 'postgres',
       url: env.postgresUrl,
-      entities: [path.join(__dirname + '../../../../data/entities/*.ts')],
-      migrations: [path.join(__dirname + '../../../../data/migrations/*.ts')],
+      entities: [path.join(__dirname, '/entities/*.ts')],
+      migrations: [path.join(__dirname, '/migrations/*.ts')],
       synchronize: true,
       logging: false
     })

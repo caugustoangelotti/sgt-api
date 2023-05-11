@@ -27,7 +27,7 @@ LoadDisciplinaRepository, UpdateDisciplinaRepository, CheckDisciplinaByIdReposit
     return MongoHelper.map(updatedDisciplina.value)
   }
 
-  async checkById (id: string): Promise<CheckDisciplinaByIdRepository.Result> {
+  async checkById (id: number): Promise<CheckDisciplinaByIdRepository.Result> {
     const disciplinaCollection = MongoHelper.getCollection('disciplinas')
     const disciplina = await disciplinaCollection.findOne({
       _id: new ObjectId(id)

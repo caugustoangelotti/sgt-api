@@ -1,7 +1,7 @@
 import type { ProfessorModel, UpdateProfessorModel } from '../../domain/models'
 import type { AddProfessor, CheckProfessorById, LoadProfessor, UpdateProfessor } from '../../domain/usecases'
 
-import { randUuid, randFullName, randEmail, randNumber } from '@ngneat/falso'
+import { randFullName, randEmail, randNumber } from '@ngneat/falso'
 
 export class AddProfessorSpy implements AddProfessor {
   params: AddProfessor.Params
@@ -13,21 +13,21 @@ export class AddProfessorSpy implements AddProfessor {
 
 export class LoadProfessorSpy implements LoadProfessor {
   result: ProfessorModel[] = [{
-    id: randUuid(),
+    id: randNumber({ min: 10000000, max: 99999999 }),
     name: randFullName(),
     email: randEmail(),
     tempoIc: randNumber({ min: 1, max: 999 }),
     dataCadastro: new Date()
   },
   {
-    id: randUuid(),
+    id: randNumber({ min: 10000000, max: 99999999 }),
     name: randFullName(),
     email: randEmail(),
     tempoIc: randNumber({ min: 1, max: 999 }),
     dataCadastro: new Date()
   },
   {
-    id: randUuid(),
+    id: randNumber({ min: 10000000, max: 99999999 }),
     name: randFullName(),
     email: randEmail(),
     tempoIc: randNumber({ min: 1, max: 999 }),
