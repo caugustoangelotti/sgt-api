@@ -27,6 +27,16 @@ export class Turmas {
     dataCriacao: Date
 
   @ManyToMany(() => Horarios)
-  @JoinTable()
+  @JoinTable({
+    name: 'turma_has_horarios',
+    joinColumn: {
+      name: 'turmaId',
+      referencedColumnName: 'id'
+    },
+    inverseJoinColumn: {
+      name: 'horarioId',
+      referencedColumnName: 'id'
+    }
+  })
     horarios: Horarios[]
 }
