@@ -4,7 +4,7 @@ export interface LoadAccountByEmailRepository {
 
 export namespace LoadAccountByEmailRepository {
   export interface Result {
-    id: string
+    id: number
     name: string
     password: string
   }

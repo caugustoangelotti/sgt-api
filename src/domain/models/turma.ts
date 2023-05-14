@@ -12,4 +12,5 @@ interface Horario {
   dia: string
   horaInicio: string
   horaFim: string
+  sala: string
 }

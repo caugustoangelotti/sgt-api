@@ -4,6 +4,6 @@ export interface LoadAccountByTokenRepository {
 
 export namespace LoadAccountByTokenRepository {
   export interface Result {
-    id: string
+    id: number
   }
 }

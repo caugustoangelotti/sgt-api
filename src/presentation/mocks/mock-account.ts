@@ -1,6 +1,6 @@
 import type { AddAccount, Authentication, LoadAccountByToken } from '../../domain/usecases'
 
-import { randUuid, randFullName } from '@ngneat/falso'
+import { randUuid, randFullName, randNumber } from '@ngneat/falso'
 
 export class AddAccountSpy implements AddAccount {
   params: AddAccount.Params
@@ -29,7 +29,7 @@ export class LoadAccountByTokenSpy implements LoadAccountByToken {
   accessToken: string
   role: string
   result = {
-    id: randUuid()
+    id: randNumber({ min: 1, max: 99999999 })
   }
 
   async load (accessToken: string, role?: string): Promise<LoadAccountByToken.Result> {

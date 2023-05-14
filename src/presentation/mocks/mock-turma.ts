@@ -13,8 +13,8 @@ export class LoadTurmaSpy {
     id: randUuid(),
     disciplina: randTextRange({ min: 40, max: 70 }),
     horarios: [
-      { dia: randWeekday(), horaInicio: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, horaFim: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}` },
-      { dia: randWeekday(), horaInicio: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, horaFim: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}` }
+      { dia: randWeekday(), horaInicio: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, horaFim: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, sala: randWord() },
+      { dia: randWeekday(), horaInicio: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, horaFim: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, sala: randWord() }
     ],
     modelo: randWord(),
     dataCadastro: new Date()
@@ -23,8 +23,8 @@ export class LoadTurmaSpy {
     id: randUuid(),
     disciplina: randTextRange({ min: 40, max: 70 }),
     horarios: [
-      { dia: randWeekday(), horaInicio: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, horaFim: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}` },
-      { dia: randWeekday(), horaInicio: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, horaFim: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}` }
+      { dia: randWeekday(), horaInicio: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, horaFim: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, sala: randWord() },
+      { dia: randWeekday(), horaInicio: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, horaFim: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, sala: randWord() }
     ],
     modelo: randWord(),
     dataCadastro: new Date()

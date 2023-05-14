@@ -1,21 +1,22 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { Professores } from './professores'
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
 
 @Entity()
 export class Accounts {
   @PrimaryGeneratedColumn()
     id: number
 
-  @OneToOne(() => Professores)
-  @JoinColumn()
-    professor: Professores
+  @Column({ type: 'varchar' })
+    name: string
 
   @Column({ type: 'varchar' })
-    senha: string
+    email: string
 
   @Column({ type: 'varchar' })
+    password: string
+
+  @Column({ type: 'varchar', nullable: true })
     accessToken: string
 
-  @Column({ type: 'varchar' })
+  @Column({ type: 'varchar', nullable: true })
     role: string
 }

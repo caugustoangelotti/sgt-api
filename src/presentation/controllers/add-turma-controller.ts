@@ -47,5 +47,6 @@ export namespace AddTurmaController {
     dia: string
     horaInicio: string
     horaFim: string
+    sala: string
   }
 }
