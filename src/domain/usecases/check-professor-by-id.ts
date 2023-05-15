@@ -1,5 +1,5 @@
 export interface CheckProfessorById {
-  checkById: (id: string) => Promise<CheckProfessorById.Result>
+  checkById: (id: number) => Promise<CheckProfessorById.Result>
 }
 
 export namespace CheckProfessorById {

@@ -4,7 +4,7 @@ import type { CheckProfessorByIdRepository } from '../protocols'
 export class DbCheckProfessorById implements CheckProfessorById {
   constructor (private readonly checkProfessorByIdRepository: CheckProfessorByIdRepository) {}
 
-  async checkById (id: string): Promise<CheckProfessorById.Result> {
+  async checkById (id: number): Promise<CheckProfessorById.Result> {
     return await this.checkProfessorByIdRepository.checkById(id)
   }
 }

@@ -1,8 +1,8 @@
-import { ProfessorMongoRepository } from '../../../infra/db/mongodb'
+import { ProfessorPostgresRepository } from '../../../infra/db'
 import { DbUpdateProfessor } from '../../../data/usecases'
 import type { UpdateProfessor } from '../../../domain/usecases'
 
 export const makeDbUpdateProfessor = (): UpdateProfessor => {
-  const profesorMongoRepository = new ProfessorMongoRepository()
-  return new DbUpdateProfessor(profesorMongoRepository)
+  const professorPostgresRepository = new ProfessorPostgresRepository()
+  return new DbUpdateProfessor(professorPostgresRepository)
 }

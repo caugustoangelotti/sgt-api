@@ -55,10 +55,10 @@ export class UpdateProfessorSpy implements UpdateProfessor {
 }
 
 export class CheckProfessorByIdSpy implements CheckProfessorById {
-  id: string
+  id: number
   result = true
 
-  async checkById (id: string): Promise<CheckProfessorById.Result> {
+  async checkById (id: number): Promise<CheckProfessorById.Result> {
     this.id = id
     return this.result
   }

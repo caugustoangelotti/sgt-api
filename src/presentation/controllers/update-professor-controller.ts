@@ -39,7 +39,7 @@ export class UpdateProfessorController implements Controller {
 
 export namespace UpdateProfessorController {
   export interface Request {
-    id: string
+    id: number
     name?: string
     email?: string
     tempoIc?: number

@@ -1,5 +1,5 @@
 export interface UpdateProfessorModel {
-  id: string
+  id: number
   name?: string
   email?: string
   tempoIc?: number

@@ -1,8 +1,8 @@
 import type { LoadProfessor } from '../../../domain/usecases'
-import { ProfessorMongoRepository } from '../../../infra/db/mongodb'
 import { DbLoadProfessor } from '../../../data/usecases'
+import { ProfessorPostgresRepository } from '../../../infra/db'
 
 export const makeDbLoadProfessor = (): LoadProfessor => {
-  const profesorMongoRepository = new ProfessorMongoRepository()
-  return new DbLoadProfessor(profesorMongoRepository)
+  const professorPostgresRepository = new ProfessorPostgresRepository()
+  return new DbLoadProfessor(professorPostgresRepository)
 }

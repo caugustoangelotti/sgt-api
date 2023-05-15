@@ -3,7 +3,10 @@ import type { AddProfessorRepository, CheckProfessorByIdRepository, LoadProfesso
 import { MongoHelper } from '../../../infra/db/mongodb'
 import { ObjectId } from 'mongodb'
 
-export class ProfessorMongoRepository implements AddProfessorRepository, LoadProfessorRepository, CheckProfessorByIdRepository, UpdateProfessorRepository {
+export class ProfessorMongoRepository implements AddProfessorRepository,
+                                                  LoadProfessorRepository,
+                                                  CheckProfessorByIdRepository,
+                                                  UpdateProfessorRepository {
   async add (data: AddProfessorRepository.Params): Promise<void> {
     const professorCollection = MongoHelper.getCollection('professores')
     await professorCollection.insertOne(data)
@@ -27,7 +30,7 @@ export class ProfessorMongoRepository implements AddProfessorRepository, LoadPro
     return MongoHelper.map(updatedProfessor.value)
   }
 
-  async checkById (id: string): Promise<CheckProfessorByIdRepository.Result> {
+  async checkById (id: number): Promise<CheckProfessorByIdRepository.Result> {
     const professorCollection = MongoHelper.getCollection('professores')
     const professor = await professorCollection.findOne({
       _id: new ObjectId(id)
