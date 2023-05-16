@@ -3,6 +3,7 @@ import { RemoveProfessorController } from './remove-professor-controller'
 
 import MockDate from 'mockdate'
 import { randNumber } from '@ngneat/falso'
+import { badRequest } from '../helpers'
 
 interface SutTypes {
   sut: RemoveProfessorController
@@ -57,5 +58,12 @@ describe('Remove Professor Controller', () => {
     await sut.handle(request)
     const { id } = request
     expect(removeProfessorSpy.params).toEqual(id)
+  })
+
+  test('Should return 400 if Validation fails', async () => {
+    const { sut, validationSpy } = makeSut()
+    validationSpy.error = new Error()
+    const httpResponse = await sut.handle(mockRequest())
+    expect(httpResponse).toEqual(badRequest(validationSpy.error))
   })
 })
