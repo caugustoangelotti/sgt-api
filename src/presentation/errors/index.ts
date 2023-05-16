@@ -1,6 +1,7 @@
 export * from './invalid-param-error'
 export * from './invalid-length-error'
 export * from './invalid-value-error'
+export * from './invalid-numeric-id-error'
 export * from './missing-param-error'
 export * from './server-error'
 export * from './unauthorized-error'
