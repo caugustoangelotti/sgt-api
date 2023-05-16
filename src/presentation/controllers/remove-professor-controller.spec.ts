@@ -15,7 +15,7 @@ const makeSut = (): SutTypes => {
   const removeProfessorSpy = new RemoveProfessorSpy()
   const validationSpy = new ValidationSpy()
   const checkProfessorByIdSpy = new CheckProfessorByIdSpy()
-  const sut = new RemoveProfessorController(validationSpy)
+  const sut = new RemoveProfessorController(removeProfessorSpy, checkProfessorByIdSpy, validationSpy)
   return {
     sut,
     removeProfessorSpy,
@@ -42,5 +42,12 @@ describe('Remove Professor Controller', () => {
     const request = mockRequest()
     await sut.handle(request)
     expect(validationSpy.input).toEqual(request)
+  })
+
+  test('Should call CheckProfessorById with correct value', async () => {
+    const { sut, checkProfessorByIdSpy } = makeSut()
+    const request = mockRequest()
+    await sut.handle(request)
+    expect(checkProfessorByIdSpy.id).toBe(request.id)
   })
 })
