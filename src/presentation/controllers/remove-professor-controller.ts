@@ -17,6 +17,7 @@ export class RemoveProfessorController implements Controller {
     if (!exists) {
       return { statusCode: 400, body: error }
     }
+    await this.removeProfessor.remove(request.id)
     return await Promise.resolve({ statusCode: 200, body: {} })
   }
 }
