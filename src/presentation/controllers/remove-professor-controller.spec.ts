@@ -84,4 +84,14 @@ describe('Remove Professor Controller', () => {
     const httpResponse = await sut.handle(request)
     expect(httpResponse).toEqual(serverError(new Error()))
   })
+
+  test('Should return 500 if CheckProfessorById throws', async () => {
+    const { sut, checkProfessorByIdSpy } = makeSut()
+    const request = mockRequest()
+    jest.spyOn(checkProfessorByIdSpy, 'checkById').mockImplementationOnce(() => {
+      throw new Error()
+    })
+    const httpResponse = await sut.handle(request)
+    expect(httpResponse).toEqual(serverError(new Error()))
+  })
 })
