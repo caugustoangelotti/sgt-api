@@ -3,7 +3,7 @@ import { RemoveProfessorController } from './remove-professor-controller'
 
 import MockDate from 'mockdate'
 import { randNumber } from '@ngneat/falso'
-import { badRequest } from '../helpers'
+import { badRequest, serverError } from '../helpers'
 import { InvalidParamError } from '../errors'
 
 interface SutTypes {
@@ -73,5 +73,15 @@ describe('Remove Professor Controller', () => {
     checkProfessorByIdSpy.result = false
     const httpResponse = await sut.handle(mockRequest())
     expect(httpResponse).toEqual(badRequest(new InvalidParamError('id')))
+  })
+
+  test('Should return 500 if Validation throws', async () => {
+    const { sut, validationSpy } = makeSut()
+    const request = mockRequest()
+    jest.spyOn(validationSpy, 'validate').mockImplementationOnce(() => {
+      throw new Error()
+    })
+    const httpResponse = await sut.handle(request)
+    expect(httpResponse).toEqual(serverError(new Error()))
   })
 })
