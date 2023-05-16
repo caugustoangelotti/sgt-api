@@ -38,7 +38,7 @@ export class ProfessorPostgresRepository implements AddProfessorRepository,
     return account !== null
   }
 
-  async remove (id: number): Promise<CheckProfessorByIdRepository.Result> {
+  async remove (id: number): Promise<RemoveProfessorRepository.Result> {
     const professorRepository = PostgresHelper.client.manager.getRepository('professores')
     await professorRepository.delete(id)
     return true
