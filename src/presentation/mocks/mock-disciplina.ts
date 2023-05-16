@@ -1,5 +1,5 @@
 import type { DisciplinaModel, UpdateDisciplinaModel } from '../../domain/models'
-import type { AddDisciplina, CheckDisciplinaById, LoadDisciplina, UpdateDisciplina } from '../../domain/usecases'
+import type { AddDisciplina, CheckDisciplinaById, LoadDisciplina, RemoveDisciplina, UpdateDisciplina } from '../../domain/usecases'
 import { randNumber, randTextRange } from '@ngneat/falso'
 
 export class AddDisciplinaSpy implements AddDisciplina {
@@ -52,6 +52,16 @@ export class UpdateDisciplinaSpy implements UpdateDisciplina {
       ...this.params,
       dataCadastro: new Date()
     }
+    return this.result
+  }
+}
+
+export class RemoveDisciplinaSpy implements RemoveDisciplina {
+  params: number
+  result: any
+  async remove (id: number): Promise<any> {
+    this.params = id
+    this.result = true
     return this.result
   }
 }
