@@ -1,8 +1,8 @@
 import type { AddDisciplina } from '../../../domain/usecases'
-import { DisciplinaMongoRepository } from '../../../infra/db/mongodb'
 import { DbAddDisciplina } from '../../../data/usecases'
+import { DisciplinaPostgresRepository } from '../../../infra/db'
 
 export const makeDbAddDisciplina = (): AddDisciplina => {
-  const disciplinaMongoRepository = new DisciplinaMongoRepository()
-  return new DbAddDisciplina(disciplinaMongoRepository)
+  const disciplinaPostgresRepository = new DisciplinaPostgresRepository()
+  return new DbAddDisciplina(disciplinaPostgresRepository)
 }
