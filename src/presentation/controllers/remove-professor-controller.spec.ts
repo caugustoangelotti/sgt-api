@@ -50,4 +50,12 @@ describe('Remove Professor Controller', () => {
     await sut.handle(request)
     expect(checkProfessorByIdSpy.id).toBe(request.id)
   })
+
+  test('Should call RemoveProfessor with correct values', async () => {
+    const { sut, removeProfessorSpy } = makeSut()
+    const request = mockRequest()
+    await sut.handle(request)
+    const { id } = request
+    expect(removeProfessorSpy.params).toEqual(id)
+  })
 })
