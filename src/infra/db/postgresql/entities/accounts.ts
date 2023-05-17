@@ -6,7 +6,7 @@ export class Accounts {
   @PrimaryGeneratedColumn()
     id: number
 
-  @OneToOne(() => Professores, (professor) => professor.account, { nullable: false })
+  @OneToOne(() => Professores, (professor) => professor.account, { nullable: false, eager: true })
   @JoinColumn({
     name: 'professorId'
   })

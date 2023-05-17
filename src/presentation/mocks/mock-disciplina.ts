@@ -5,8 +5,9 @@ import { randNumber, randTextRange } from '@ngneat/falso'
 export class AddDisciplinaSpy implements AddDisciplina {
   params: AddDisciplina.Params
 
-  async add (params: AddDisciplina.Params): Promise<void> {
+  async add (params: AddDisciplina.Params): Promise<any> {
     this.params = params
+    return this.params
   }
 }
 export class LoadDisciplinaSpy {

@@ -1,7 +1,7 @@
 import type { DisciplinaModel } from '../models/disciplina'
 
 export interface AddDisciplina {
-  add: (disciplina: AddDisciplina.Params) => Promise<void>
+  add: (disciplina: AddDisciplina.Params) => Promise<any>
 }
 
 export namespace AddDisciplina {

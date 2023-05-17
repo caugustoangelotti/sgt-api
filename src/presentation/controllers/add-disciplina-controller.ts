@@ -21,8 +21,8 @@ export class AddDisciplinaController implements Controller {
         cargaHoraria: request.cargaHoraria,
         dataCadastro: new Date()
       }
-      await this.addDisciplina.add(disciplina)
-      return ok({ ...disciplina, account_id: request.account_id })
+      const addedData = await this.addDisciplina.add(disciplina)
+      return ok({ ...addedData })
     } catch (error) {
       return serverError(error)
     }
@@ -34,6 +34,6 @@ export namespace AddDisciplinaController {
     semestre: number
     codigo: string
     cargaHoraria: number
-    account_id?: string
+    accountId?: string
   }
 }

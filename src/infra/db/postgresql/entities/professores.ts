@@ -8,7 +8,7 @@ export class Professores {
     id: number
 
   @OneToOne(() => Accounts, (account) => account.professor, { cascade: true })
-    account: number
+    account: Accounts
 
   @Column({ type: 'varchar' })
     name: string

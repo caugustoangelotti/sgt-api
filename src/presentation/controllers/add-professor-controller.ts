@@ -33,7 +33,7 @@ export class AddProfessorController implements Controller {
         return forbidden(new EmailInUseError())
       }
       const { password, ...rest } = professor
-      return ok({ ...rest, account_id: request.account_id })
+      return ok({ ...rest, accountId: request.accountId })
     } catch (error) {
       return serverError(error)
     }
@@ -47,6 +47,6 @@ export namespace AddProfessorController {
     passwordConfirmation: string
     tempoIc: number
     role?: string
-    account_id?: string
+    accountId?: string
   }
 }

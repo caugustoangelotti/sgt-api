@@ -35,9 +35,11 @@ export class AccountPostgresRepository implements AddAccountRepository,
   }
 
   async checkByEmail (email: string): Promise<CheckAccountByEmailRepository.Result> {
-    const accountsRepository = PostgresHelper.client.manager.getRepository('professores')
+    const accountsRepository = PostgresHelper.client.manager.getRepository('accounts')
     const account = await accountsRepository.findOneBy({
-      email
+      professor: {
+        email
+      }
     })
     return account !== null
   }

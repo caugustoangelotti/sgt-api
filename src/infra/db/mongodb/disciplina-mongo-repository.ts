@@ -4,7 +4,7 @@ import { MongoHelper } from '../../../infra/db/mongodb/mongo-helper'
 import { ObjectId } from 'mongodb'
 export class DisciplinaMongoRepository implements AddDisciplinaRepository,
 LoadDisciplinaRepository, UpdateDisciplinaRepository, CheckDisciplinaByIdRepository {
-  async add (data: AddDisciplinaRepository.Params): Promise<void> {
+  async add (data: AddDisciplinaRepository.Params): Promise<any> {
     const disciplinaCollection = MongoHelper.getCollection('disciplinas')
     await disciplinaCollection.insertOne(data)
   }

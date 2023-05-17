@@ -6,10 +6,11 @@ export class DisciplinaPostgresRepository implements AddDisciplinaRepository,
                                                     UpdateDisciplinaRepository,
                                                     CheckDisciplinaByIdRepository,
                                                     RemoveDisciplinaRepository {
-  async add (data: AddDisciplinaRepository.Params): Promise<void> {
+  async add (data: AddDisciplinaRepository.Params): Promise<any> {
     const disciplinaRepository = PostgresHelper.client.manager.getRepository('disciplinas')
     const createdDisciplinaData = disciplinaRepository.create(data)
-    await disciplinaRepository.save(createdDisciplinaData)
+    await disciplinaRepository.insert(createdDisciplinaData)
+    return { ...createdDisciplinaData }
   }
 
   async loadAll (): Promise<LoadDisciplinaRepository.Result> {

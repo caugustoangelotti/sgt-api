@@ -8,10 +8,10 @@ export class Turmas {
   @PrimaryGeneratedColumn()
     id: number
 
-  @ManyToOne(() => Disciplinas, disciplina => disciplina.turmas)
+  @ManyToOne(() => Disciplinas, disciplina => disciplina.turmas, { eager: true })
     disciplina: Disciplinas
 
-  @ManyToOne(() => Professores, professor => professor.turmas)
+  @ManyToOne(() => Professores, professor => professor.turmas, { eager: true })
     professor: Professores
 
   @Column({ type: 'boolean' })
@@ -26,7 +26,7 @@ export class Turmas {
   @Column({ type: 'date' })
     dataCriacao: Date
 
-  @ManyToMany(() => Horarios, { cascade: true })
+  @ManyToMany(() => Horarios, { cascade: true, eager: true })
   @JoinTable({
     name: 'turma_has_horarios',
     joinColumn: {
