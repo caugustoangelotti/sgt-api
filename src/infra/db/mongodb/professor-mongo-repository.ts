@@ -7,9 +7,10 @@ export class ProfessorMongoRepository implements AddProfessorRepository,
                                                   LoadProfessorRepository,
                                                   CheckProfessorByIdRepository,
                                                   UpdateProfessorRepository {
-  async add (data: AddProfessorRepository.Params): Promise<void> {
+  async add (data: AddProfessorRepository.Params): Promise<AddProfessorRepository.Result> {
     const professorCollection = MongoHelper.getCollection('professores')
-    await professorCollection.insertOne(data)
+    const professor = await professorCollection.insertOne(data)
+    return professor !== null
   }
 
   async loadAll (): Promise<LoadProfessorRepository.Result> {

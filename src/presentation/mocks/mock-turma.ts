@@ -1,6 +1,4 @@
-import type { TurmaModel } from '../../domain/models'
-import type { LoadTurma } from '../../domain/usecases'
-import { randUuid, randWord, randNumber, randTextRange, randWeekday } from '@ngneat/falso'
+import { randWord, randNumber, randTextRange, randWeekday } from '@ngneat/falso'
 
 export class AddTurmaSpy {
   params: any
@@ -9,8 +7,8 @@ export class AddTurmaSpy {
   }
 }
 export class LoadTurmaSpy {
-  result: TurmaModel[] = [{
-    id: randUuid(),
+  result = [{
+    id: randNumber({ min: 10000000, max: 99999999 }),
     disciplina: randTextRange({ min: 40, max: 70 }),
     horarios: [
       { dia: randWeekday(), horaInicio: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, horaFim: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, sala: randWord() },
@@ -20,7 +18,7 @@ export class LoadTurmaSpy {
     dataCadastro: new Date()
   },
   {
-    id: randUuid(),
+    id: randNumber({ min: 10000000, max: 99999999 }),
     disciplina: randTextRange({ min: 40, max: 70 }),
     horarios: [
       { dia: randWeekday(), horaInicio: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, horaFim: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, sala: randWord() },
@@ -31,7 +29,7 @@ export class LoadTurmaSpy {
   }
   ]
 
-  async load (): Promise<LoadTurma.Result> {
+  async load (): Promise<any> {
     return this.result
   }
 }

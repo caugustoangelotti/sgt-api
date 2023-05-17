@@ -20,13 +20,13 @@ export class Turmas {
   @Column({ type: 'boolean' })
     lab: boolean
 
-  @Column({ type: 'boolean' })
+  @Column({ type: 'boolean', nullable: true })
     aprovada: boolean
 
   @Column({ type: 'date' })
     dataCriacao: Date
 
-  @ManyToMany(() => Horarios)
+  @ManyToMany(() => Horarios, { cascade: true })
   @JoinTable({
     name: 'turma_has_horarios',
     joinColumn: {

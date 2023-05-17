@@ -36,7 +36,7 @@ export class AddTurmaController implements Controller {
 
 export namespace AddTurmaController {
   export interface Request {
-    disciplina: string
+    disciplina: number
     horarios: Horario[]
     modelo: string
     professor?: string
@@ -45,8 +45,8 @@ export namespace AddTurmaController {
 
   interface Horario {
     dia: string
-    horaInicio: string
-    horaFim: string
+    inicio: string
+    fim: string
     sala: string
   }
 }

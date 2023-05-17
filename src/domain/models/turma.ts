@@ -1,16 +1,14 @@
 export interface TurmaModel {
-  id: string
-  disciplina: string
+  id: number
+  disciplina: number
   horarios: Horario[]
   modelo: string
-  professor?: string
-  tempoIc?: number
   dataCadastro: Date
 }
 
-interface Horario {
+export interface Horario {
   dia: string
-  horaInicio: string
-  horaFim: string
+  inicio: string
+  fim: string
   sala: string
 }

@@ -1,9 +1,12 @@
 import type { AddProfessor } from '../../../domain/usecases'
 import { DbAddProfessor } from '../../../data/usecases'
-import { ProfessorPostgresRepository } from '../../../infra/db'
+import { AccountPostgresRepository, ProfessorPostgresRepository } from '../../../infra/db'
+import { BcryptAdapter } from '../../../infra/cryptography'
 
 export const makeDbAddProfessor = (): AddProfessor => {
-  //  const profesorMongoRepository = new ProfessorMongoRepository()
   const profesorPostgresRepository = new ProfessorPostgresRepository()
-  return new DbAddProfessor(profesorPostgresRepository)
+  const accountPostgresRepository = new AccountPostgresRepository()
+  const salt = 12
+  const bcryptAdapter = new BcryptAdapter(salt)
+  return new DbAddProfessor(profesorPostgresRepository, accountPostgresRepository, bcryptAdapter)
 }

@@ -1,4 +1,4 @@
-import type { ProfessorModel, UpdateProfessorModel } from '../../domain/models'
+import type { UpdateProfessorModel } from '../../domain/models'
 import type { AddProfessor, CheckProfessorById, LoadProfessor, RemoveProfessor, UpdateProfessor } from '../../domain/usecases'
 
 import { randFullName, randEmail, randNumber } from '@ngneat/falso'
@@ -6,13 +6,14 @@ import { randFullName, randEmail, randNumber } from '@ngneat/falso'
 export class AddProfessorSpy implements AddProfessor {
   params: AddProfessor.Params
 
-  async add (params: AddProfessor.Params): Promise<void> {
+  async add (params: AddProfessor.Params): Promise<AddProfessor.Result> {
     this.params = params
+    return true
   }
 }
 
 export class LoadProfessorSpy implements LoadProfessor {
-  result: ProfessorModel[] = [{
+  result = [{
     id: randNumber({ min: 10000000, max: 99999999 }),
     name: randFullName(),
     email: randEmail(),
@@ -35,7 +36,7 @@ export class LoadProfessorSpy implements LoadProfessor {
   }
   ]
 
-  async load (): Promise<LoadProfessor.Result> {
+  async load (): Promise<any> {
     return this.result
   }
 }

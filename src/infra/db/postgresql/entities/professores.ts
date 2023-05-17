@@ -1,17 +1,20 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
-import type { ProfessorModel } from '../../../../domain/models'
+import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Turmas } from './turmas'
+import { Accounts } from './accounts'
 
 @Entity()
-export class Professores implements ProfessorModel {
+export class Professores {
   @PrimaryGeneratedColumn()
     id: number
 
-  @Column({ type: 'varchar' })
-    email: string
+  @OneToOne(() => Accounts, (account) => account.professor, { cascade: true })
+    account: number
 
   @Column({ type: 'varchar' })
     name: string
+
+  @Column({ type: 'varchar', unique: true })
+    email: string
 
   @Column()
     tempoIc: number

@@ -29,6 +29,9 @@ export class SignUpController implements Controller {
         email,
         password
       })
+      if (!authenticationModel) {
+        return forbidden(new Error('zeka'))
+      }
       return ok(authenticationModel)
     } catch (error) {
       return serverError(error)

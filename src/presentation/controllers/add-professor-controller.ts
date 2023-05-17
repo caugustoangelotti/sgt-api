@@ -1,5 +1,6 @@
 import type { AddProfessor } from '../../domain/usecases'
-import { ok, badRequest, serverError } from '../helpers'
+import { EmailInUseError } from '../errors'
+import { ok, badRequest, serverError, forbidden } from '../helpers'
 import type { Controller, Validation, HttpResponse } from '../protocols'
 
 export class AddProfessorController implements Controller {
@@ -14,15 +15,25 @@ export class AddProfessorController implements Controller {
       if (error) {
         return badRequest(error)
       }
+      let { role } = request
+      if (role === 'admin') {
+        role = undefined
+      }
       const professor = {
         name: request.name,
         email: request.email,
+        password: request.password,
         tempoIc: request.tempoIc,
+        role,
         dataCadastro: new Date()
       }
 
-      await this.addProfessor.add(professor)
-      return ok({ ...professor, account_id: request.account_id })
+      const isValid = await this.addProfessor.add(professor)
+      if (!isValid) {
+        return forbidden(new EmailInUseError())
+      }
+      const { password, ...rest } = professor
+      return ok({ ...rest, account_id: request.account_id })
     } catch (error) {
       return serverError(error)
     }
@@ -32,7 +43,10 @@ export namespace AddProfessorController {
   export interface Request {
     name: string
     email: string
+    password: string
+    passwordConfirmation: string
     tempoIc: number
+    role?: string
     account_id?: string
   }
 }

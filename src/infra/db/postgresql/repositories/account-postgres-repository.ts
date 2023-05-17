@@ -14,16 +14,20 @@ export class AccountPostgresRepository implements AddAccountRepository,
   }
 
   async loadByEmail (email: string): Promise<LoadAccountByEmailRepository.Result> {
-    const accountsRepository = PostgresHelper.client.manager.getRepository('accounts')
-    const account = await accountsRepository.findOneBy({
+    const professorRepository = PostgresHelper.client.manager.getRepository('professores')
+    const accountRepository = PostgresHelper.client.manager.getRepository('accounts')
+    const professor = await professorRepository.findOneBy({
       email
     })
-    if (account) {
-      const { id, name, password } = account
+    if (professor) {
+      const account = await accountRepository.findOneBy({
+        professor: professor.id
+      })
+      const { id, name } = professor
       const accountData = {
         id,
         name,
-        password
+        password: account?.password
       }
       return accountData
     }
@@ -31,7 +35,7 @@ export class AccountPostgresRepository implements AddAccountRepository,
   }
 
   async checkByEmail (email: string): Promise<CheckAccountByEmailRepository.Result> {
-    const accountsRepository = PostgresHelper.client.manager.getRepository('accounts')
+    const accountsRepository = PostgresHelper.client.manager.getRepository('professores')
     const account = await accountsRepository.findOneBy({
       email
     })
@@ -45,11 +49,11 @@ export class AccountPostgresRepository implements AddAccountRepository,
 
   async loadByToken (token: string, role?: string): Promise<LoadAccountByTokenRepository.Result> {
     const accountsRepository = PostgresHelper.client.manager.getRepository('accounts')
-    const account = await accountsRepository.find({
+    const account = await accountsRepository.findOne({
       where: [
         {
           accessToken: token,
-          role: role ?? ''
+          role
         },
         {
           accessToken: token,

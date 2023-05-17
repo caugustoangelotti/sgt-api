@@ -1,4 +1,6 @@
 import type { AddProfessorRepository, CheckProfessorByIdRepository, LoadProfessorRepository, RemoveProfessorRepository, UpdateProfessorRepository } from '../../../../data/protocols'
+import { Accounts } from '../entities'
+
 import { PostgresHelper } from '../postgres-helper'
 
 export class ProfessorPostgresRepository implements AddProfessorRepository,
@@ -6,10 +8,23 @@ export class ProfessorPostgresRepository implements AddProfessorRepository,
                                                     UpdateProfessorRepository,
                                                     CheckProfessorByIdRepository,
                                                     RemoveProfessorRepository {
-  async add (data: AddProfessorRepository.Params): Promise<void> {
+  async add (data: AddProfessorRepository.Params): Promise<AddProfessorRepository.Result> {
     const professorRepository = PostgresHelper.client.manager.getRepository('professores')
-    const professor = professorRepository.create(data)
-    await professorRepository.save(professor)
+    const { name, email, tempoIc, dataCadastro, password, role } = data
+    const professor = professorRepository.create({
+      name,
+      email,
+      tempoIc,
+      dataCadastro
+    })
+    const account = new Accounts()
+    account.password = password
+    if (role) {
+      account.role = role
+    }
+    professor.account = account
+    const status = await professorRepository.save(professor)
+    return status !== null
   }
 
   async loadAll (): Promise<LoadProfessorRepository.Result> {
