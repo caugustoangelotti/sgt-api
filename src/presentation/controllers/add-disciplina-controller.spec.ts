@@ -78,7 +78,10 @@ describe('Add Disciplina Controller', () => {
     const { sut } = makeSut()
     const request = mockRequest()
     const response = {
-      ...request,
+      name: request.name,
+      semestre: request.semestre,
+      codigo: request.codigo,
+      cargaHoraria: request.cargaHoraria,
       dataCadastro: new Date()
     }
     const httpResponse = await sut.handle(request)
