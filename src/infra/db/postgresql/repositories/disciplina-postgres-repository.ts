@@ -1,4 +1,5 @@
 import type { AddDisciplinaRepository, CheckDisciplinaByIdRepository, LoadDisciplinaRepository, RemoveDisciplinaRepository, UpdateDisciplinaRepository } from '../../../../data/protocols'
+
 import { PostgresHelper } from '../postgres-helper'
 
 export class DisciplinaPostgresRepository implements AddDisciplinaRepository,

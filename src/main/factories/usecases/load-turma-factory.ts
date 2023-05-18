@@ -1,8 +1,8 @@
 import type { LoadTurma } from '../../../domain/usecases'
-import { TurmaMongoRepository } from '../../../infra/db/mongodb'
 import { DbLoadTurma } from '../../../data/usecases'
+import { TurmaPostgresRepository } from '../../../infra/db'
 
 export const makeDbLoadTurma = (): LoadTurma => {
-  const turmaMongoRepository = new TurmaMongoRepository()
-  return new DbLoadTurma(turmaMongoRepository)
+  const turmaPostgresRepository = new TurmaPostgresRepository()
+  return new DbLoadTurma(turmaPostgresRepository)
 }

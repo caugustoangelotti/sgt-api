@@ -1,11 +1,14 @@
-import type { AddTurma } from '../../domain/usecases'
-import { badRequest, noContent, serverError } from '../helpers'
+import type { AddTurma, CheckDisciplinaById, CheckProfessorById } from '../../domain/usecases'
+import { InvalidParamError } from '../errors'
+import { badRequest, ok, serverError } from '../helpers'
 import type { Controller, HttpResponse, Validation } from '../protocols'
 
 export class AddTurmaController implements Controller {
   constructor (
-    private readonly validation: Validation,
-    private readonly addTurma: AddTurma
+    private readonly addTurma: AddTurma,
+    private readonly checkProfessorById: CheckProfessorById,
+    private readonly checkDisciplinaById: CheckDisciplinaById,
+    private readonly validation: Validation
   ) {}
 
   async handle (request: AddTurmaController.Request): Promise<HttpResponse> {
@@ -14,20 +17,18 @@ export class AddTurmaController implements Controller {
       if (error) {
         return badRequest(error)
       }
-      const turma = {
-        disciplina: request.disciplina,
-        horarios: request.horarios,
-        modelo: request.modelo,
-        dataCadastro: new Date()
+      const existsDisciplina = await this.checkDisciplinaById.checkById(request.disciplina)
+      if (!existsDisciplina) {
+        return badRequest(new InvalidParamError('disciplina'))
       }
-      const optionalFields = ['professor', 'tempoIc']
-      for (const field of optionalFields) {
-        if (request[field]) {
-          turma[field] = request[field]
+      if (request.professor) {
+        const existsProfessor = await this.checkProfessorById.checkById(request.professor)
+        if (!existsProfessor) {
+          return badRequest(new InvalidParamError('professor'))
         }
       }
-      await this.addTurma.add(turma)
-      return noContent()
+      const turma = await this.addTurma.add({ ...request, dataCadastro: new Date() })
+      return ok({ ...turma })
     } catch (error) {
       return serverError(error)
     }
@@ -37,10 +38,13 @@ export class AddTurmaController implements Controller {
 export namespace AddTurmaController {
   export interface Request {
     disciplina: number
+    professor?: number
     horarios: Horario[]
+    projetor?: boolean
+    lab?: boolean
+    aprovada?: boolean
     modelo: string
-    professor?: string
-    tempoIc?: number
+    dataCadastro: Date
   }
 
   interface Horario {

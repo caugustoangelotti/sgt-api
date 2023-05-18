@@ -1,7 +1,7 @@
 import type { TurmaModel } from '../models'
 
 export interface AddTurma {
-  add: (turma: AddTurma.Params) => Promise<void>
+  add: (turma: AddTurma.Params) => Promise<any>
 }
 
 export namespace AddTurma {

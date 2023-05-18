@@ -11,20 +11,20 @@ export class Turmas {
   @ManyToOne(() => Disciplinas, disciplina => disciplina.turmas, { eager: true })
     disciplina: Disciplinas
 
-  @ManyToOne(() => Professores, professor => professor.turmas, { eager: true })
+  @ManyToOne(() => Professores, professor => professor.turmas, { eager: true, nullable: true })
     professor: Professores
 
-  @Column({ type: 'boolean' })
+  @Column({ type: 'boolean', nullable: true })
     projetor: boolean
 
-  @Column({ type: 'boolean' })
+  @Column({ type: 'boolean', nullable: true })
     lab: boolean
 
   @Column({ type: 'boolean', nullable: true })
     aprovada: boolean
 
   @Column({ type: 'date' })
-    dataCriacao: Date
+    dataCadastro: Date
 
   @ManyToMany(() => Horarios, { cascade: true, eager: true })
   @JoinTable({

@@ -2,8 +2,9 @@ import { randWord, randNumber, randTextRange, randWeekday } from '@ngneat/falso'
 
 export class AddTurmaSpy {
   params: any
-  async add (params): Promise<void> {
+  async add (params): Promise<any> {
     this.params = params
+    return this.params
   }
 }
 export class LoadTurmaSpy {
