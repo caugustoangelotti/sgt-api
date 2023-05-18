@@ -1,45 +1,35 @@
-/*
-  * cordenadores e diretores podem criar turmas
-  * cada turma deve conter uma diciplina, um professor(este podendo ser inicialmente nulo, pois
-  * os professores podem ou não escolher a turma a principio), um periodo(SI, CC ou CC/SI) e uma
-  * lista de horarios cada um contendo (dia da semana, horario de inicio e fim)
-  * turma {
-  *  disciplina: disciplina.id,
-  *  professor: professor.id,
-  *  modelo: string,
-  *  semestre: disciplina.semestre,
-  *  horarios: [
-  *   {dia: string, inicio: string, fim: string},
-  *   {dia: string, inicio: string, fim: string}
-  *  ]
-  * }
-*/
 import { AddTurmaController } from './add-turma-controller'
-import { ValidationSpy, AddTurmaSpy } from '../mocks'
+import { ValidationSpy, AddTurmaSpy, CheckDisciplinaByIdSpy } from '../mocks'
 
 import MockDate from 'mockdate'
-import { randNumber, randTextRange, randWeekday, randWord } from '@ngneat/falso'
-import { badRequest, noContent, serverError } from '../helpers'
+import { randNumber, randWeekday, randWord } from '@ngneat/falso'
+import { badRequest, ok, serverError } from '../helpers'
 
 interface SutTypes {
   sut: AddTurmaController
   addTurmaSpy: AddTurmaSpy
+  checkProfessorByIdSpy: CheckDisciplinaByIdSpy
+  checkDisciplinaByIdSpy: CheckDisciplinaByIdSpy
   validationSpy: ValidationSpy
 }
 
 const makeSut = (): SutTypes => {
   const addTurmaSpy = new AddTurmaSpy()
+  const checkProfessorByIdSpy = new CheckDisciplinaByIdSpy()
+  const checkDisciplinaByIdSpy = new CheckDisciplinaByIdSpy()
   const validationSpy = new ValidationSpy()
-  const sut = new AddTurmaController(validationSpy, addTurmaSpy)
+  const sut = new AddTurmaController(addTurmaSpy, checkProfessorByIdSpy, checkDisciplinaByIdSpy, validationSpy)
   return {
     sut,
     addTurmaSpy,
+    checkProfessorByIdSpy,
+    checkDisciplinaByIdSpy,
     validationSpy
   }
 }
 
 const mockRequest = (): any => ({
-  disciplina: randTextRange({ min: 40, max: 70 }),
+  disciplina: randNumber({ min: 1, max: 9999 }),
   horarios: [
     { dia: randWeekday(), inicio: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, fim: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}` },
     { dia: randWeekday(), inicio: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, fim: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}` }
@@ -101,10 +91,16 @@ describe('Add Turma Controller', () => {
     expect(httpResponse).toEqual(serverError(new Error()))
   })
 
-  test('Should return 204 on success', async () => {
+  test('Should return 200 and turma data on success', async () => {
     const { sut } = makeSut()
     const request = mockRequest()
+
+    const response = {
+      ...request,
+      dataCadastro: new Date()
+    }
+
     const httpResponse = await sut.handle(request)
-    expect(httpResponse).toEqual(noContent())
+    expect(httpResponse).toEqual(ok(response))
   })
 })
