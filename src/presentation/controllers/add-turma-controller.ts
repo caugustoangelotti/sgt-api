@@ -1,4 +1,5 @@
-import type { AddTurma, CheckDisciplinaById, CheckProfessorById } from '../../domain/usecases'
+import type { TurmaDTO } from '../../domain/models'
+import type { AddTurma, GetDisciplinaById, GetProfessorById } from '../../domain/usecases'
 import { InvalidParamError } from '../errors'
 import { badRequest, ok, serverError } from '../helpers'
 import type { Controller, HttpResponse, Validation } from '../protocols'
@@ -6,8 +7,8 @@ import type { Controller, HttpResponse, Validation } from '../protocols'
 export class AddTurmaController implements Controller {
   constructor (
     private readonly addTurma: AddTurma,
-    private readonly checkProfessorById: CheckProfessorById,
-    private readonly checkDisciplinaById: CheckDisciplinaById,
+    private readonly getProfessorById: GetProfessorById,
+    private readonly getDisciplinaById: GetDisciplinaById,
     private readonly validation: Validation
   ) {}
 
@@ -17,17 +18,21 @@ export class AddTurmaController implements Controller {
       if (error) {
         return badRequest(error)
       }
-      const existsDisciplina = await this.checkDisciplinaById.checkById(request.disciplina)
-      if (!existsDisciplina) {
+      const { disciplina, professor, ...rest } = request
+      const disciplinaData = await this.getDisciplinaById.getById(disciplina)
+      if (!disciplinaData) {
         return badRequest(new InvalidParamError('disciplina'))
       }
-      if (request.professor) {
-        const existsProfessor = await this.checkProfessorById.checkById(request.professor)
-        if (!existsProfessor) {
+      const turmaDto: TurmaDTO = { ...rest, disciplina: disciplinaData }
+      if (professor) {
+        const professorData = await this.getProfessorById.getById(professor)
+        if (!professorData) {
           return badRequest(new InvalidParamError('professor'))
         }
+        turmaDto.professores = [professorData]
       }
-      const turma = await this.addTurma.add({ ...request, dataCadastro: new Date() })
+      turmaDto.dataCadastro = new Date()
+      const turma = await this.addTurma.add({ ...turmaDto })
       return ok({ ...turma })
     } catch (error) {
       return serverError(error)

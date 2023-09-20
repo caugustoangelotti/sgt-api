@@ -1,5 +1,5 @@
-import type { AddProfessorRepository, CheckProfessorByIdRepository, LoadProfessorRepository, RemoveProfessorRepository, UpdateProfessorRepository } from '../../../../data/protocols'
-import { Accounts } from '../entities'
+import type { AddProfessorRepository, CheckProfessorByIdRepository, GetProfessorByIdRepository, LoadProfessorRepository, RemoveProfessorRepository, UpdateProfessorRepository } from '../../../../data/protocols'
+import { Accounts, type Professores } from '../entities'
 
 import { PostgresHelper } from '../postgres-helper'
 
@@ -7,6 +7,7 @@ export class ProfessorPostgresRepository implements AddProfessorRepository,
                                                     LoadProfessorRepository,
                                                     UpdateProfessorRepository,
                                                     CheckProfessorByIdRepository,
+                                                    GetProfessorByIdRepository,
                                                     RemoveProfessorRepository {
   async add (data: AddProfessorRepository.Params): Promise<AddProfessorRepository.Result> {
     const professorRepository = PostgresHelper.client.manager.getRepository('professores')
@@ -51,6 +52,14 @@ export class ProfessorPostgresRepository implements AddProfessorRepository,
       id
     })
     return account !== null
+  }
+
+  async getById (id: number): Promise<GetProfessorByIdRepository.Result> {
+    const professorRepository = PostgresHelper.client.manager.getRepository('professores')
+    const account = await professorRepository.findOneBy({
+      id
+    })
+    return account as Professores
   }
 
   async remove (id: number): Promise<RemoveProfessorRepository.Result> {

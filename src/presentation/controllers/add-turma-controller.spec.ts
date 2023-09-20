@@ -1,29 +1,30 @@
 import { AddTurmaController } from './add-turma-controller'
-import { ValidationSpy, AddTurmaSpy, CheckDisciplinaByIdSpy } from '../mocks'
+import { ValidationSpy, AddTurmaSpy, GetDisciplinaByIdSpy, GetProfessorByIdSpy } from '../mocks'
+import { badRequest, ok, serverError } from '../helpers'
+import type { Disciplinas } from '../../infra/db'
 
 import MockDate from 'mockdate'
-import { randNumber, randWeekday, randWord } from '@ngneat/falso'
-import { badRequest, ok, serverError } from '../helpers'
+import { randNumber, randWeekday, randWord, randTextRange } from '@ngneat/falso'
 
 interface SutTypes {
   sut: AddTurmaController
   addTurmaSpy: AddTurmaSpy
-  checkProfessorByIdSpy: CheckDisciplinaByIdSpy
-  checkDisciplinaByIdSpy: CheckDisciplinaByIdSpy
+  getProfessorByIdSpy: GetProfessorByIdSpy
+  getDisciplinaByIdSpy: GetDisciplinaByIdSpy
   validationSpy: ValidationSpy
 }
 
 const makeSut = (): SutTypes => {
   const addTurmaSpy = new AddTurmaSpy()
-  const checkProfessorByIdSpy = new CheckDisciplinaByIdSpy()
-  const checkDisciplinaByIdSpy = new CheckDisciplinaByIdSpy()
+  const getProfessorByIdSpy = new GetProfessorByIdSpy()
+  const getDisciplinaByIdSpy = new GetDisciplinaByIdSpy()
   const validationSpy = new ValidationSpy()
-  const sut = new AddTurmaController(addTurmaSpy, checkProfessorByIdSpy, checkDisciplinaByIdSpy, validationSpy)
+  const sut = new AddTurmaController(addTurmaSpy, getProfessorByIdSpy, getDisciplinaByIdSpy, validationSpy)
   return {
     sut,
     addTurmaSpy,
-    checkProfessorByIdSpy,
-    checkDisciplinaByIdSpy,
+    getProfessorByIdSpy,
+    getDisciplinaByIdSpy,
     validationSpy
   }
 }
@@ -35,6 +36,16 @@ const mockRequest = (): any => ({
     { dia: randWeekday(), inicio: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}`, fim: `${randNumber({ min: 0, max: 23 })}:${randNumber({ min: 0, max: 59 })}` }
   ],
   modelo: randWord()
+})
+
+const mockDisciplina = (): Disciplinas => ({
+  id: randNumber({ min: 10000000, max: 99999999 }),
+  name: randTextRange({ min: 40, max: 70 }),
+  semestre: randNumber({ min: 1, max: 8 }),
+  codigo: randNumber({ min: 10000000, max: 99999999 }).toString(),
+  cargaHoraria: randNumber({ min: 20, max: 100 }),
+  dataCadastro: new Date(),
+  turmas: []
 })
 
 describe('Add Turma Controller', () => {
@@ -61,11 +72,16 @@ describe('Add Turma Controller', () => {
   })
 
   test('Should call AddTurma with correct values', async () => {
-    const { sut, addTurmaSpy } = makeSut()
+    const { sut, addTurmaSpy, getDisciplinaByIdSpy } = makeSut()
+    const disciplinaData = mockDisciplina()
     const request = mockRequest()
+    disciplinaData.id = request.id
+    getDisciplinaByIdSpy.disciplina = disciplinaData
     await sut.handle(request)
+    const { disciplina, ...rest } = request
     const response = {
-      ...request,
+      ...rest,
+      disciplina: disciplinaData,
       dataCadastro: new Date()
     }
     expect(addTurmaSpy.params).toEqual(response)
@@ -92,11 +108,15 @@ describe('Add Turma Controller', () => {
   })
 
   test('Should return 200 and turma data on success', async () => {
-    const { sut } = makeSut()
+    const { sut, getDisciplinaByIdSpy } = makeSut()
     const request = mockRequest()
-
+    const disciplinaData = mockDisciplina()
+    disciplinaData.id = request
+    getDisciplinaByIdSpy.disciplina = disciplinaData
+    const { disciplina, ...rest } = request
     const response = {
-      ...request,
+      ...rest,
+      disciplina: disciplinaData,
       dataCadastro: new Date()
     }
 

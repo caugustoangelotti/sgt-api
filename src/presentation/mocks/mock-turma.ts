@@ -1,6 +1,8 @@
+import type { AddTurma } from '../../domain/usecases'
+
 import { randWord, randNumber, randTextRange, randWeekday } from '@ngneat/falso'
 
-export class AddTurmaSpy {
+export class AddTurmaSpy implements AddTurma {
   params: any
   async add (params): Promise<any> {
     this.params = params

@@ -1,6 +1,7 @@
 import type { DisciplinaModel, UpdateDisciplinaModel } from '../../domain/models'
-import type { AddDisciplina, CheckDisciplinaById, LoadDisciplina, RemoveDisciplina, UpdateDisciplina } from '../../domain/usecases'
+import type { AddDisciplina, CheckDisciplinaById, GetDisciplinaById, LoadDisciplina, RemoveDisciplina, UpdateDisciplina } from '../../domain/usecases'
 import { randNumber, randTextRange } from '@ngneat/falso'
+import type { Disciplinas } from '../../infra/db'
 
 export class AddDisciplinaSpy implements AddDisciplina {
   params: AddDisciplina.Params
@@ -41,6 +42,17 @@ export class CheckDisciplinaByIdSpy implements CheckDisciplinaById {
   async checkById (id: number): Promise<CheckDisciplinaById.Result> {
     this.id = id
     return this.result
+  }
+}
+
+export class GetDisciplinaByIdSpy implements GetDisciplinaById {
+  id: number
+  disciplina: Disciplinas
+
+  async getById (id: number): Promise<GetDisciplinaById.Result> {
+    this.id = id
+    this.disciplina.id = id
+    return this.disciplina
   }
 }
 

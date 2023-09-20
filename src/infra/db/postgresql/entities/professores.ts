@@ -1,5 +1,4 @@
-import { Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
-import { Turmas } from './turmas'
+import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm'
 import { Accounts } from './accounts'
 
 @Entity()
@@ -21,7 +20,4 @@ export class Professores {
 
   @Column({ type: 'date' })
     dataCadastro: Date
-
-  @OneToMany(() => Turmas, (turmas) => turmas.professor)
-    turmas: Turmas[]
 }

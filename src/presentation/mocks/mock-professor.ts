@@ -1,7 +1,8 @@
 import type { UpdateProfessorModel } from '../../domain/models'
-import type { AddProfessor, CheckProfessorById, LoadProfessor, RemoveProfessor, UpdateProfessor } from '../../domain/usecases'
+import type { AddProfessor, CheckProfessorById, GetProfessorById, LoadProfessor, RemoveProfessor, UpdateProfessor } from '../../domain/usecases'
 
 import { randFullName, randEmail, randNumber } from '@ngneat/falso'
+import { Professores } from '../../infra/db'
 
 export class AddProfessorSpy implements AddProfessor {
   params: AddProfessor.Params
@@ -72,5 +73,21 @@ export class CheckProfessorByIdSpy implements CheckProfessorById {
   async checkById (id: number): Promise<CheckProfessorById.Result> {
     this.id = id
     return this.result
+  }
+}
+
+export class GetProfessorByIdSpy implements GetProfessorById {
+  id: number
+  result = true
+  professor = new Professores()
+
+  async getById (id: number): Promise<GetProfessorById.Result> {
+    this.id = id
+    this.professor.id = id
+    this.professor.name = randFullName()
+    this.professor.email = randEmail()
+    this.professor.tempoIc = randNumber({ min: 1, max: 999 })
+    this.professor.dataCadastro = new Date()
+    return this.professor
   }
 }

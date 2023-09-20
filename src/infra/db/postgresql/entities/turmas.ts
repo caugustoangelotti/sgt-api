@@ -11,8 +11,19 @@ export class Turmas {
   @ManyToOne(() => Disciplinas, disciplina => disciplina.turmas, { eager: true })
     disciplina: Disciplinas
 
-  @ManyToOne(() => Professores, professor => professor.turmas, { eager: true, nullable: true })
-    professor: Professores
+  @ManyToMany(() => Professores, { cascade: true, eager: true, nullable: true })
+  @JoinTable({
+    name: 'turma_has_professores',
+    joinColumn: {
+      name: 'turmaId',
+      referencedColumnName: 'id'
+    },
+    inverseJoinColumn: {
+      name: 'professorId',
+      referencedColumnName: 'id'
+    }
+  })
+    professores: Professores[]
 
   @Column({ type: 'boolean', nullable: true })
     projetor: boolean
