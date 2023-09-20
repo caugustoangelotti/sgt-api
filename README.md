@@ -2,7 +2,7 @@
 
 <img src="imagem.png" alt="Exemplo imagem">
 
-> Api feita seguindo boas práticas de desenvolvimento como clean code e clean architecture. Essa api possibilita o cadastro de professores, turmas e disciplinas.
+> Api feita seguindo boas práticas de desenvolvimento como clean code e clean architecture. Api construida em nodejs, códigos e testes escritos com TypeScript e banco de dados postgresql utilizando TypeOrm como ORM. Essa api possibilita o cadastro de professores, turmas e disciplinas.
 
 ### Ajustes e melhorias
 
@@ -21,7 +21,7 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
   <tr>
     <td align="center">
       <a href="#">
-        <img src="[https://avatars3.githubusercontent.com/u/31936044](https://avatars.githubusercontent.com/u/48024390?v=4)" width="100px;" alt="Foto do Carlos Augusto no GitHub"/><br>
+        <img src="https://imgur.com/a/ZL6vTwS" width="100px;" alt="Foto do Carlos Augusto no GitHub"/><br>
         <sub>
           <b>caugustoangelotti</b>
         </sub>
