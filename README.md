@@ -8,8 +8,10 @@ O projeto ainda está em desenvolvimento e as próximas atualizações serão vo
 
 - [x] CRUD Professores, Turmas e Disciplinas
 - [x] Autenticação por token JwT
+- [x] Endpoints cobertos por testes unitários
 - [ ] Formação de vinculos entre turmas e professores
 - [ ] Distribuição automática das turmas, com critério de desempate sendo o tempo de sala de cada professor
+- [ ] Aumentar a cobertura de testes
 
 ## 🤝 Colaboradores
 
