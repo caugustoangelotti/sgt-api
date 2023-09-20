@@ -1,7 +1,5 @@
 # API SGT(Sistema de gestão de turmas)
 
-<img src="imagem.png" alt="Exemplo imagem">
-
 > Api feita seguindo boas práticas de desenvolvimento como clean code e clean architecture. Api construida em nodejs, códigos e testes escritos com TypeScript e banco de dados postgresql utilizando TypeOrm como ORM. Essa api possibilita o cadastro de professores, turmas e disciplinas.
 
 ### Ajustes e melhorias
