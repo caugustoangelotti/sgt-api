@@ -21,7 +21,7 @@ Agradecemos às seguintes pessoas que contribuíram para este projeto:
   <tr>
     <td align="center">
       <a href="#">
-        <img src="https://imgur.com/a/ZL6vTwS" width="100px;" alt="Foto do Carlos Augusto no GitHub"/><br>
+        <img src="https://i.imgur.com/nIKtGWL.jpg" width="100px;" alt="Foto do Carlos Augusto no GitHub"/><br>
         <sub>
           <b>caugustoangelotti</b>
         </sub>
